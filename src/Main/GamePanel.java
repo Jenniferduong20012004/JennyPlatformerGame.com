@@ -9,14 +9,14 @@ import java.io.InputStream;
 
 public class GamePanel extends JPanel {
     private BufferedImage img;
-    public GamePanel() throws IOException {
+    public GamePanel(){
         importImg();
     }
     public void paintComponent (Graphics g){
 
     }
 
-    private void importImg() throws IOException {
+    private void importImg() {
         InputStream is = getClass().getResourceAsStream("Res/Main-char/Attack (78x58).png");
         try {
             img = ImageIO.read(is);
