@@ -14,8 +14,8 @@ public class GamePanel extends JPanel {
     private BufferedImage img;
     private MouseInputs mouseInputs;
     public GamePanel(){
-        mouseInputs = new MouseInputs();
-        addKeyListener(new KeyboardInputs());
+        mouseInputs = new MouseInputs(this);
+        addKeyListener(new KeyboardInputs(this));
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
         importImg();
