@@ -13,13 +13,22 @@ import java.io.InputStream;
 public class GamePanel extends JPanel {
     private BufferedImage img;
     private MouseInputs mouseInputs;
+    private BufferedImage [] attackAni;
     public GamePanel(){
         mouseInputs = new MouseInputs(this);
+        importImg();
+        loadAnimation();
         setPanelSize();
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
-        importImg();
+    }
+
+    private void loadAnimation() {
+        attackAni = new BufferedImage[3];
+        for (int i =0; i <attackAni.length; i++){
+            attackAni[i] = img.getSubimage(i*78,0,78,58);
+        }
     }
 
     private void setPanelSize() {
@@ -31,7 +40,7 @@ public class GamePanel extends JPanel {
 
     public void paintComponent (Graphics g){
         super.paintComponent(g);
-        g.drawImage(img.getSubimage(0,0,78,58),0,0,156,116,null);
+        g.drawImage(attackAni[1],0,0,156,116,null);
     }
 
     private void importImg() {
