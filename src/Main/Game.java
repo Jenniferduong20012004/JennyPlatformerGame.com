@@ -10,6 +10,7 @@ public class Game implements Runnable{
         gamePanel = new GamePanel();
         gamewindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();
+        startGameLoop();
     }
     public static Game getGame(){
         if (gameInstance ==null){
@@ -19,7 +20,8 @@ public class Game implements Runnable{
     }
 
     private void startGameLoop(){
-
+        gameThread = new Thread (this);
+        gameThread.start();
     }
 
     @Override

@@ -10,12 +10,17 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static utilz.Constant.*;
+import static utilz.Constant.PlayerConstants.*;
+
 public class GamePanel extends JPanel {
     private BufferedImage img;
     private MouseInputs mouseInputs;
     private BufferedImage [] attackAni;
     private int aniTick, aniIndex;
     private int aniSpeed = 20;
+    private int playerAction = ATTACK;
+    private int playerDir = -1;
     public GamePanel(){
         mouseInputs = new MouseInputs(this);
         importImg();
@@ -45,13 +50,19 @@ public class GamePanel extends JPanel {
         updateAnimationTick();
         g.drawImage(attackAni[aniIndex],0,0,156,116,null);
     }
+    public void setMoving(int direction){
+        this.playerDir = direction;
+    }
+    public void setDirection(int direction){
+
+    }
 
     private void updateAnimationTick() {
         aniTick++;
         if (aniTick >= aniSpeed){
             aniTick =0;
             aniIndex ++;
-            if (aniIndex >= attackAni.length){
+            if (aniIndex >= getSpriteAmount (playerAction)){
                 aniIndex =0;
             }
         }
