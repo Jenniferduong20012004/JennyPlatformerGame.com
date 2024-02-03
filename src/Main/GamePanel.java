@@ -21,6 +21,7 @@ public class GamePanel extends JPanel {
     private int aniSpeed = 20;
     private int playerAction = ATTACK;
     private int playerDir = -1;
+    private boolean moving = false;
     public GamePanel(){
         mouseInputs = new MouseInputs(this);
         importImg();
@@ -50,11 +51,12 @@ public class GamePanel extends JPanel {
         updateAnimationTick();
         g.drawImage(attackAni[aniIndex],0,0,156,116,null);
     }
-    public void setMoving(int direction){
-        this.playerDir = direction;
+    public void setMoving(boolean moving){
+        this.moving = moving;
     }
     public void setDirection(int direction){
-
+        this.playerDir = direction;
+        moving = true;
     }
 
     private void updateAnimationTick() {

@@ -29,6 +29,8 @@ public class KeyboardInputs implements KeyListener {
                 gamePanel.setDirection(UP);
             case KeyEvent.VK_DOWN:
                 gamePanel.setDirection(DOWN);
+            case KeyEvent.VK_LEFT:
+
 
         }
     }
