@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
+import static utilz.Constant.Directions.*;
 import static utilz.Constant.PlayerConstants.*;
 
 public class GamePanel extends JPanel {
@@ -15,7 +17,7 @@ public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;
     private BufferedImage [][] playerAnimation;
     private int aniTick, aniIndex;
-    private int aniSpeed = 20;
+    private int aniSpeed = 40;
     private int playerAction = IDLE;
     private int playerDir = -1;
     private boolean moving = false;
@@ -64,7 +66,27 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         updateAnimationTick();
         setAnimation();
+        updatePos();
         g.drawImage(playerAnimation[playerAction][aniIndex],(int)xDelta,(int)yDelta,156,116,null);
+    }
+
+    private void updatePos() {
+        if (moving){
+            switch (playerDir){
+                case LEFT:
+                    xDelta-=5;
+                    break;
+                case RIGHT:
+                    xDelta +=5;
+                    break;
+                case UP:
+                    yDelta-=5;
+                    break;
+                case DOWN:
+                    yDelta+=5;
+                    break;
+            }
+        }
     }
 
     private void setAnimation() {
