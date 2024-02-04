@@ -1,5 +1,6 @@
 package Main;
 import entities.Player;
+import levels.LevelManager;
 
 import java.awt.*;
 
@@ -7,6 +8,7 @@ public class Game implements Runnable{
     private static Game gameInstance = null;
     private GameWindow gamewindow;
     private GamePanel gamePanel;
+    private LevelManager levelManager;
     private Player player;
     private Thread gameThread;
     private final int FPS_SET = 120;
@@ -28,6 +30,7 @@ public class Game implements Runnable{
 
     private void initClasses() {
         player = new Player(200,200);
+        levelManager = new LevelManager(this);
     }
 
     public static Game getGame(){
@@ -43,9 +46,11 @@ public class Game implements Runnable{
     }
     public void update(){
         player.update();
+        levelManager.update();
     }
     public void render (Graphics g){
         player.render(g);
+        levelManager.render(g);
     }
 
     @Override

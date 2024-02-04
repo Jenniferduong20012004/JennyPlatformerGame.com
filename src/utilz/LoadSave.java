@@ -17,8 +17,9 @@ public class LoadSave {
     public static final String PLAYER_JUMP = "Player/Jump (78x58).png";
     public static final String PLAYER_RUN = "Player/Run (78x58).png";
     public static final String TERRAIN_ATLAS = "Level/Terrain (32x32).png";
-    public static final String DECORATION_ATLAS="Level/Decorations (32x32).png";
-    public static BufferedImage GetPlayerAtlas(String fileName) {
+    public static final String DECORATION_ATLAS= "Level/Decorations (32x32).png";
+    public static final String OUTSIDER_ATLAS = "Level/outside_sprites.png";
+    public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img=null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+fileName);
         try {
