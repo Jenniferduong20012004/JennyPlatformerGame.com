@@ -2,8 +2,11 @@ package entities;
 
 import utilz.LoadSave;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static utilz.Constant.Directions.*;
+import static utilz.Constant.Directions.DOWN;
 import static utilz.Constant.PlayerConstants.*;
 
 public class Player extends Entity{
@@ -12,18 +15,24 @@ public class Player extends Entity{
     private int playerAction = IDLE;
     private int playerDir = -1;
     private boolean moving = false;
+    private int xDelta =0;
+    private int yDelta =0;
     private BufferedImage [][] playerAnimation;
 
 
     public Player(float x, float y) {
         super(x, y);
+        loadAnimation();
     }
     public void update (){
         //observer
+        updateAnimationTick();
+        setAnimation();
+        updatePos();
 
     }
-    public void render(){
-
+    public void render(Graphics g){
+        g.drawImage(playerAnimation[playerAction][aniIndex],(int)xDelta,(int)yDelta,156,116,null);
     }
     private void loadAnimation() {
         playerAnimation = new BufferedImage[10][11];
@@ -48,4 +57,48 @@ public class Player extends Entity{
         BufferedImage run = LoadSave.GetPlayerAtlas(LoadSave.PLAYER_RUN);
         for (int i =0; i <getSpriteAmount(RUNNING); i++){playerAnimation[RUNNING][i] =run.getSubimage(i*78,0,78,58);}
     }
+    private void updateAnimationTick() {
+        aniTick++;
+        if (aniTick >= aniSpeed){
+            aniTick =0;
+            aniIndex ++;
+            if (aniIndex >= getSpriteAmount (playerAction)){
+                aniIndex =0;
+            }
+        }
+    }
+    public void setMoving(boolean moving){
+        this.moving = moving;
+    }
+    public void setDirection(int direction){
+        this.playerDir = direction;
+        moving = true;
+    }
+    private void setAnimation() {
+        if (moving){
+            playerAction = RUNNING;
+        }
+        else{
+            playerAction = IDLE;
+        }
+    }
+    private void updatePos() {
+        if (moving){
+            switch (playerDir){
+                case LEFT:
+                    xDelta-=5;
+                    break;
+                case RIGHT:
+                    xDelta +=5;
+                    break;
+                case UP:
+                    yDelta-=5;
+                    break;
+                case DOWN:
+                    yDelta+=5;
+                    break;
+            }
+        }
+    }
+
 }
