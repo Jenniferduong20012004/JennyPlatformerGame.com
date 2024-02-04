@@ -11,6 +11,8 @@ public class Game implements Runnable{
     private Thread gameThread;
     private final int FPS_SET = 120;
     private final int UPS_SET =200;
+    public final static int TILES_DEFAULT_SIZE =32;
+    public final static float SCALE = 1.0f;
     private Game(){
         initClasses();
         gamePanel = new GamePanel(this);
