@@ -17,7 +17,9 @@ public class Player extends Entity{
     private boolean moving = false;
     private int xDelta =0;
     private int yDelta =0;
+    private boolean up, down, left, right;
     private BufferedImage [][] playerAnimation;
+    private int playerSpeed =20;
 
 
     public Player(float x, float y) {
@@ -83,22 +85,35 @@ public class Player extends Entity{
         }
     }
     private void updatePos() {
-        if (moving){
-            switch (playerDir){
-                case LEFT:
-                    xDelta-=5;
-                    break;
-                case RIGHT:
-                    xDelta +=5;
-                    break;
-                case UP:
-                    yDelta-=5;
-                    break;
-                case DOWN:
-                    yDelta+=5;
-                    break;
-            }
+        if (left &&!right){
+            xDelta -= playerSpeed;
+            moving = true;
+        }
+        else if (!left && right){
+            xDelta += playerSpeed;
+            moving = true;
+        }
+        if (up && !down){
+            yDelta -= playerSpeed;
+            moving = true;
+        }
+        else if (!up&& down){
+            yDelta += playerSpeed;
+            moving = true;
         }
     }
+    public void setUp(boolean up){
+        this.up =up;
+    }
+    public void setDown(boolean down){
+        this.down =down;
+    }
+    public void setLeft(boolean left){
+        this.left =left;
+    }
+    public void setRight(boolean right){
+        this.right =right;
+    }
+
 
 }
