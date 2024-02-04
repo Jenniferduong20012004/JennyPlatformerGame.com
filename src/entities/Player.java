@@ -5,21 +5,20 @@ import utilz.LoadSave;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static utilz.Constant.Directions.*;
-import static utilz.Constant.Directions.DOWN;
 import static utilz.Constant.PlayerConstants.*;
 
 public class Player extends Entity{
     private int aniTick, aniIndex;
-    private int aniSpeed = 20;
+    private int aniSpeed = 30;
     private int playerAction = IDLE;
     private int playerDir = -1;
     private boolean moving = false;
+    private boolean attack =false;
     private int xDelta =0;
     private int yDelta =0;
     private boolean up, down, left, right;
     private BufferedImage [][] playerAnimation;
-    private int playerSpeed =20;
+    private int playerSpeed =5;
 
 
     public Player(float x, float y) {
@@ -28,10 +27,9 @@ public class Player extends Entity{
     }
     public void update (){
         //observer
+        updatePos();
         updateAnimationTick();
         setAnimation();
-        updatePos();
-
     }
     public void render(Graphics g){
         g.drawImage(playerAnimation[playerAction][aniIndex],(int)xDelta,(int)yDelta,156,116,null);
@@ -66,6 +64,7 @@ public class Player extends Entity{
             aniIndex ++;
             if (aniIndex >= getSpriteAmount (playerAction)){
                 aniIndex =0;
+                attack = false;
             }
         }
     }
@@ -83,8 +82,12 @@ public class Player extends Entity{
         else{
             playerAction = IDLE;
         }
+        if (attack){
+            playerAction = ATTACK;
+        }
     }
     private void updatePos() {
+        moving = false;
         if (left &&!right){
             xDelta -= playerSpeed;
             moving = true;
@@ -104,16 +107,26 @@ public class Player extends Entity{
     }
     public void setUp(boolean up){
         this.up =up;
+        setMoving(up);
     }
     public void setDown(boolean down){
         this.down =down;
+        setMoving(down);
     }
     public void setLeft(boolean left){
         this.left =left;
+        setMoving(left);
     }
     public void setRight(boolean right){
         this.right =right;
+        setMoving(right);
     }
+    public void setAttack(boolean attack) {this.attack = attack;}
 
-
+    public void resetDirBoolean() {
+        up = false;
+        down = false;
+        right = false;
+        left = false;
+    }
 }
