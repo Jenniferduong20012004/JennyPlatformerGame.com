@@ -49,8 +49,8 @@ public class Game implements Runnable{
         levelManager.update();
     }
     public void render (Graphics g){
-        player.render(g);
         levelManager.render(g);
+        player.render(g);
     }
 
     @Override

@@ -1,6 +1,9 @@
 package utilz;
 
+import Main.Game;
+
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +22,7 @@ public class LoadSave {
     public static final String TERRAIN_ATLAS = "Level/Terrain (32x32).png";
     public static final String DECORATION_ATLAS= "Level/Decorations (32x32).png";
     public static final String OUTSIDER_ATLAS = "Level/outside_sprites.png";
+    public static final String LEVEL_ONE = "Level/level_one_data_long.png";
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img=null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+fileName);
@@ -36,5 +40,20 @@ public class LoadSave {
             }
         }
         return img;
+    }
+    public static int [][] GetLevelData(){
+        int [][] lvlData = new int [100][100];
+        BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ONE);
+        for (int i =0;i< img.getHeight(); i++){
+            for (int j =0; j< img.getWidth(); j++){
+                Color color = new Color(img.getRGB(j,i));
+                int value = color.getRed();
+                if(value >=48){
+                    value = 0;
+                }
+                lvlData[i][j]=value;
+            }
+        }
+        return lvlData;
     }
 }

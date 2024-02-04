@@ -6,12 +6,16 @@ import utilz.LoadSave;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static Main.Game.TILES_SIZE;
+
 public class LevelManager {
     private Game game;
     private BufferedImage[] levelSprite;
+    private Level levelOne;
     public LevelManager (Game game){
         this.game = game;
         importOutsiderSprites();
+        levelOne = new Level(LoadSave.GetLevelData());
     }
 
     private void importOutsiderSprites() {
@@ -25,7 +29,12 @@ public class LevelManager {
         }
     }
     public void render (Graphics g){
-        g.drawImage(levelSprite[10],200,200,32,32,null);
+        for (int i=0; i< Game.TILES_IN_HEIGHT; i++){
+            for (int j =0; j<Game.TILES_IN_WIDTH; j++){
+                int index = levelOne.getSpriteIndex (j,i);
+                g.drawImage(levelSprite[index],Game.TILES_SIZE*j,Game.TILES_SIZE*i,Game.TILES_SIZE,Game.TILES_SIZE,null);
+            }
+        }
     }
     public void update(){
 
