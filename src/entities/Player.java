@@ -14,6 +14,7 @@ public class Player extends Entity{
     private int playerDir = -1;
     private boolean moving = false;
     private boolean attack =false;
+    private boolean jump = false;
     private int xDelta =0;
     private int yDelta =0;
     private boolean up, down, left, right;
@@ -65,15 +66,12 @@ public class Player extends Entity{
             if (aniIndex >= getSpriteAmount (playerAction)){
                 aniIndex =0;
                 attack = false;
+                jump = false;
             }
         }
     }
     public void setMoving(boolean moving){
         this.moving = moving;
-    }
-    public void setDirection(int direction){
-        this.playerDir = direction;
-        moving = true;
     }
     private void setAnimation() {
         if (moving){
@@ -84,6 +82,9 @@ public class Player extends Entity{
         }
         if (attack){
             playerAction = ATTACK;
+        }
+        if (jump){
+            playerAction = JUMP;
         }
     }
     private void updatePos() {
@@ -122,6 +123,7 @@ public class Player extends Entity{
         setMoving(right);
     }
     public void setAttack(boolean attack) {this.attack = attack;}
+    public void setJump(boolean jump){this.jump = jump;}
 
     public void resetDirBoolean() {
         up = false;
