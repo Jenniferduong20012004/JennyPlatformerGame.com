@@ -1,5 +1,6 @@
 package entities;
 
+import Main.Game;
 import utilz.LevelBuild;
 import utilz.LoadSave;
 import utilz.helpMethods;
@@ -20,11 +21,14 @@ public class Player extends Entity{
     private BufferedImage [][] playerAnimation;
     private int playerSpeed =3;
     private int [][] lvlData;
+    private float xDrawOffset = 42* Game.SCALE;
+    private float yDrawOffset = 40*Game.SCALE;
 
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimation();
+        initHitbox(x,y,20*Game.SCALE, 28*Game.SCALE);
     }
     public void update (){
         //observer
@@ -33,7 +37,7 @@ public class Player extends Entity{
         setAnimation();
     }
     public void render(Graphics g){
-        g.drawImage(playerAnimation[playerAction][aniIndex],(int)x,(int)y,156,116,null);
+        g.drawImage(playerAnimation[playerAction][aniIndex],(int)(hitbox.x-xDrawOffset),(int)(hitbox.y-yDrawOffset),156,116,null);
     }
     private void loadAnimation() {
         playerAnimation = new BufferedImage[10][11];
@@ -107,9 +111,14 @@ public class Player extends Entity{
         else if (!up&& down){
             ySpeed = playerSpeed;
         }
-        if(helpMethods.CanMoveHere(x+xSpeed,y+ySpeed, width, height, LevelBuild.LEVEL_ONE)){
+        /*if(helpMethods.CanMoveHere(x+xSpeed,y+ySpeed, width, height, LevelBuild.LEVEL_ONE)){
             this.x +=xSpeed;
             this.y += ySpeed;
+            moving = true;
+        }*/
+        if(helpMethods.CanMoveHere(hitbox.x+xSpeed,hitbox.y+ySpeed, hitbox.width, hitbox.height, LevelBuild.LEVEL_ONE)){
+            hitbox.x +=xSpeed;
+            hitbox.y += ySpeed;
             moving = true;
         }
     }
