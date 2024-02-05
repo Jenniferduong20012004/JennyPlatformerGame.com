@@ -1,6 +1,8 @@
 package entities;
 
+import utilz.LevelBuild;
 import utilz.LoadSave;
+import utilz.helpMethods;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,19 +13,17 @@ public class Player extends Entity{
     private int aniTick, aniIndex;
     private int aniSpeed = 30;
     private int playerAction = IDLE;
-    private int playerDir = -1;
     private boolean moving = false;
     private boolean attack =false;
     private boolean jump = false;
-    private int xDelta =0;
-    private int yDelta =0;
     private boolean up, down, left, right;
     private BufferedImage [][] playerAnimation;
-    private int playerSpeed =5;
+    private int playerSpeed =3;
+    private int [][] lvlData;
 
 
-    public Player(float x, float y) {
-        super(x, y);
+    public Player(float x, float y, int width, int height) {
+        super(x, y, width, height);
         loadAnimation();
     }
     public void update (){
@@ -33,7 +33,7 @@ public class Player extends Entity{
         setAnimation();
     }
     public void render(Graphics g){
-        g.drawImage(playerAnimation[playerAction][aniIndex],(int)xDelta,(int)yDelta,156,116,null);
+        g.drawImage(playerAnimation[playerAction][aniIndex],(int)x,(int)y,156,116,null);
     }
     private void loadAnimation() {
         playerAnimation = new BufferedImage[10][11];
@@ -57,6 +57,9 @@ public class Player extends Entity{
         for (int i =0; i <getSpriteAmount(JUMP); i++){playerAnimation[JUMP][i] =jump.getSubimage(i*78,0,78,58);}
         BufferedImage run = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_RUN);
         for (int i =0; i <getSpriteAmount(RUNNING); i++){playerAnimation[RUNNING][i] =run.getSubimage(i*78,0,78,58);}
+    }
+    public void loadlvlData(int[][] lvlData){
+        this.lvlData = lvlData;
     }
     private void updateAnimationTick() {
         aniTick++;
@@ -89,38 +92,38 @@ public class Player extends Entity{
     }
     private void updatePos() {
         moving = false;
+        if(!left &&!right &&!up&&!down)
+            return;
+        float xSpeed =0, ySpeed=0;
         if (left &&!right){
-            xDelta -= playerSpeed;
-            moving = true;
+            xSpeed =- playerSpeed;
         }
         else if (!left && right){
-            xDelta += playerSpeed;
-            moving = true;
+            xSpeed = playerSpeed;
         }
         if (up && !down){
-            yDelta -= playerSpeed;
-            moving = true;
+            ySpeed = -playerSpeed;
         }
         else if (!up&& down){
-            yDelta += playerSpeed;
+            ySpeed = playerSpeed;
+        }
+        if(helpMethods.CanMoveHere(x+xSpeed,y+ySpeed, width, height, LevelBuild.LEVEL_ONE)){
+            this.x +=xSpeed;
+            this.y += ySpeed;
             moving = true;
         }
     }
     public void setUp(boolean up){
         this.up =up;
-        setMoving(up);
     }
     public void setDown(boolean down){
         this.down =down;
-        setMoving(down);
     }
     public void setLeft(boolean left){
         this.left =left;
-        setMoving(left);
     }
     public void setRight(boolean right){
         this.right =right;
-        setMoving(right);
     }
     public void setAttack(boolean attack) {this.attack = attack;}
     public void setJump(boolean jump){this.jump = jump;}
