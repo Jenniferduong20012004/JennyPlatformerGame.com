@@ -112,6 +112,11 @@ public class Player extends Entity{
         else if (!left && right){
             xSpeed = playerSpeed;
         }
+        if (!inAir){
+            if (!helpMethods.IsEntityOnFloor(hitbox,lvlData)){
+                inAir = true;
+            }
+        }
         if (inAir){
             if (helpMethods.CanMoveHere(hitbox.x,hitbox.y+airSpeed,hitbox.width,hitbox.height, lvlData)){
                 hitbox.y += airSpeed;
