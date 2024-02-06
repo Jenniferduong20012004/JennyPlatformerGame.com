@@ -1,4 +1,7 @@
 package Main;
+import Gamestates.Gamestates;
+import Gamestates.Playing;
+import Gamestates.Menu;
 import entities.Player;
 import levels.LevelManager;
 
@@ -9,6 +12,9 @@ public class Game implements Runnable{
     private GameWindow gamewindow;
     private GamePanel gamePanel;
     private LevelManager levelManager;
+    private Playing playing;
+    private Menu menu;
+    private Gamestates state;
     private Player player;
     private Thread gameThread;
     private final int FPS_SET = 120;
@@ -29,8 +35,9 @@ public class Game implements Runnable{
     }
 
     private void initClasses() {
-        player = new Player(200,200,(int) (78 * SCALE), (int) (58 * SCALE));
-        levelManager = new LevelManager(this);
+        state = new Menu (this);
+        state = new Playing (this);
+
     }
 
     public static Game getGame(){
@@ -45,12 +52,10 @@ public class Game implements Runnable{
         gameThread.start();
     }
     public void update(){
-        player.update();
-        levelManager.update();
+        state.update();
     }
     public void render (Graphics g){
-        levelManager.render(g);
-        player.render(g);
+        state.render(g);
     }
 
     @Override
@@ -80,11 +85,9 @@ public class Game implements Runnable{
             }
         }
     }
-    public Player getPlayer(){
-        return player;
-    }
 
     public void windowFocusLost() {
-        player.resetDirBoolean();
+        state.resetDirBoolean();
     }
+    public Gamestates getState(){return state;}
 }

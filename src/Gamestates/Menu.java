@@ -1,23 +1,33 @@
 package Gamestates;
 
+import Main.Game;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class Menu implements Gamestates {
+public class Menu extends States implements Gamestates {
+    public Menu(Game game) {
+        super(game);
+    }
+
+    @Override
+    public void resetDirBoolean() {
+        return;
+    }
+
     @Override
     public void update() {
 
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void render(Graphics g) {
 
     }
 
     @Override
     public void Mouseclick(MouseEvent e) {
-
     }
 
     @Override

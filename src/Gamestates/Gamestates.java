@@ -5,8 +5,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public interface Gamestates {
+    public void resetDirBoolean();
     public void update();
-    public void draw(Graphics g);
+    public void render(Graphics g);
     public void Mouseclick(MouseEvent e);
     public void MouseRealease(MouseEvent e);
     public void MouseMove(MouseEvent e);
