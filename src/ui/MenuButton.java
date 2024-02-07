@@ -1,38 +1,38 @@
 package ui;
 
 import Gamestates.Gamestates;
-import utilz.Constant;
 import utilz.LoadSave;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class MenuButton implements Buttons{
-    private int xPos, yPos, rowIndex, index;
-    private Gamestates state;
-    private BufferedImage[] imgs;
-    private boolean mouseOver, mouseClick;
-    public MenuButton (int xPos, int yPos, int rowIndex, Gamestates state){
+import static utilz.Constant.UI.Buttons.*;
+
+public abstract class MenuButton implements Buttons{
+    protected int xPos, yPos, rowIndex, index;
+    protected BufferedImage imgs[], temp;
+    protected boolean mouseOver, mouseClick;
+    protected Rectangle bound;
+    protected int xOffsetCenter = B_WIDTH/2;
+    public MenuButton (int xPos, int yPos, int rowIndex){
         this.xPos= xPos;
         this.yPos= xPos;
         this.rowIndex = rowIndex;
-        this.state = state;
         loadImgs();
+        initBound();
+    }
+    @Override
+    public void initBound(){
+        bound = new Rectangle(xPos-xOffsetCenter, yPos, B_WIDTH, B_HEIGHT);
     }
     @Override
     public void loadImgs() {
-        imgs = new BufferedImage[3];
-        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.BUTTONS_ATLAS);
-        for (int i =0; i < imgs.length; i++){
-            imgs [i] = temp.getSubimage(i* Constant.UI.Buttons.B_WIDTH_DEFAULT, rowIndex*Constant.UI.Buttons.B_HEIGHT_DEFAULT,Constant.UI.Buttons.B_WIDTH_DEFAULT, Constant.UI.Buttons.B_HEIGHT_DEFAULT);
-
-        }
+        imgs = new BufferedImage [3];
     }
 
     @Override
     public void draw(Graphics g) {
-
-    }
+        g.drawImage(imgs[index],xPos-xOffsetCenter, yPos,B_WIDTH, B_HEIGHT, null);}
 
     @Override
     public void update() {
@@ -52,4 +52,11 @@ public class MenuButton implements Buttons{
     }
     public boolean getMouseOver (){return mouseOver;}
     public boolean getMouseClick (){return mouseClick;}
+    public void resetBools(){
+        mouseOver= false;
+        mouseClick = true;
+    }
+    public Rectangle getBounds(){
+        return bound;
+    }
 }

@@ -4,10 +4,6 @@ import Main.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import static utilz.Constant.Directions.*;
-import entities.Player;
-
 public class KeyboardInputs implements KeyListener {
     private GamePanel gamePanel;
     public KeyboardInputs(GamePanel gamePanel){
