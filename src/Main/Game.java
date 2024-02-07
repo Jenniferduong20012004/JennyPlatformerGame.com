@@ -36,7 +36,7 @@ public class Game implements Runnable{
 
     private void initClasses() {
         state = new Menu (this);
-        state = new Playing (this);
+        //state = new Playing (this);
 
     }
 
@@ -51,13 +51,8 @@ public class Game implements Runnable{
         gameThread = new Thread (this);
         gameThread.start();
     }
-    public void update(){
-        state.update();
-    }
-    public void render (Graphics g){
-        state.render(g);
-    }
-
+    public void update(){state.update();}
+    public void render (Graphics g){state.render(g);}
     @Override
     public void run() {
         long previousTime = System.nanoTime();
@@ -90,4 +85,5 @@ public class Game implements Runnable{
         state.resetDirBoolean();
     }
     public Gamestates getState(){return state;}
+    public void setState(Gamestates state){this.state = state;}
 }

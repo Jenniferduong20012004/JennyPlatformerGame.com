@@ -23,7 +23,7 @@ public class Menu extends States implements Gamestates {
 
     @Override
     public void render(Graphics g) {
-
+        g.drawRect (200,200,100,100);
     }
 
     @Override
@@ -42,7 +42,9 @@ public class Menu extends States implements Gamestates {
 
     @Override
     public void KeyPress(KeyEvent e) {
-
+        if (e.getKeyCode() == KeyEvent.VK_0){
+            game.setState(new Playing(game));
+        }
     }
 
     @Override
