@@ -18,9 +18,9 @@ public class Menu extends States implements Gamestates {
     }
 
     private void loadButtons() {
-        buttons [0] = new PlayingButton(Game.GAME_WIDTH/2, (int)(150*Game.GAME_WIDTH), 0);
-        buttons [1] = new OptionsButtons(Game.GAME_WIDTH/2, (int)(150*Game.GAME_WIDTH), 1);
-        buttons [2] = new QuitButton(Game.GAME_WIDTH/2, (int)(150*Game.GAME_WIDTH), 2);
+        buttons [0] = new PlayingButton(Game.GAME_WIDTH/2, (int)(150*Game.SCALE), 0);
+        buttons [1] = new OptionsButtons(Game.GAME_WIDTH/2, (int)(220*Game.SCALE), 1);
+        buttons [2] = new QuitButton(Game.GAME_WIDTH/2, (int)(290*Game.SCALE), 2);
     }
 
     @Override
@@ -30,26 +30,58 @@ public class Menu extends States implements Gamestates {
 
     @Override
     public void update() {
-
+        for (MenuButton mb: buttons){
+            mb.update();
+        }
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawRect (200,200,100,100);
+            for (MenuButton mb: buttons){
+                mb.draw(g);
+            }
     }
 
     @Override
     public void Mouseclick(MouseEvent e) {
+            for (MenuButton mb: buttons){
+                if (isIn(e,mb)){
+                    mb.setMouseClick(true);
+                    break;
+                }
+            }
     }
 
     @Override
     public void MouseRealease(MouseEvent e) {
+        for (MenuButton mb: buttons){
+            if (isIn(e,mb)){
+                if (mb.getMouseClick()){
+                    mb.applyGameState(game);
+                }
+                break;
+            }
+        }
+        resetButtons();
+    }
 
+    private void resetButtons() {
+        for (MenuButton mb: buttons){
+            mb.resetBools();
+        }
     }
 
     @Override
     public void MouseMove(MouseEvent e) {
-
+        for (MenuButton mb: buttons){
+            mb.setMouseOver(false);
+        }
+        for (MenuButton mb: buttons){
+            if (isIn(e,mb)){
+                mb.setMouseOver(true);
+                break;
+            }
+        }
     }
 
     @Override

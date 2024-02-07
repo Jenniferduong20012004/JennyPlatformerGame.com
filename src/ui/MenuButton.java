@@ -1,6 +1,7 @@
 package ui;
 
 import Gamestates.Gamestates;
+import Main.Game;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -14,9 +15,11 @@ public abstract class MenuButton implements Buttons{
     protected boolean mouseOver, mouseClick;
     protected Rectangle bound;
     protected int xOffsetCenter = B_WIDTH/2;
+    protected Gamestates state;
+
     public MenuButton (int xPos, int yPos, int rowIndex){
         this.xPos= xPos;
-        this.yPos= xPos;
+        this.yPos= yPos;
         this.rowIndex = rowIndex;
         loadImgs();
         initBound();
@@ -59,4 +62,5 @@ public abstract class MenuButton implements Buttons{
     public Rectangle getBounds(){
         return bound;
     }
+    public abstract void applyGameState(Game game);
 }

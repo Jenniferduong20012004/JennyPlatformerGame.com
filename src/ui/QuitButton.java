@@ -1,5 +1,7 @@
 package ui;
 
+import Gamestates.Quitting;
+import Main.Game;
 import utilz.LoadSave;
 
 import java.awt.image.BufferedImage;
@@ -17,6 +19,11 @@ public class QuitButton extends MenuButton {
         super.loadImgs();
         BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.BUTTONS_ATLAS);
         for (int i =0; i< imgs.length; i++)
-            imgs[i]= temp.getSubimage(i* B_WIDTH_DEFAULT, 2 * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
+            imgs[i]= temp.getSubimage(i* B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
+    }
+
+    @Override
+    public void applyGameState(Game game) {
+        state = new Quitting(game);
     }
 }
