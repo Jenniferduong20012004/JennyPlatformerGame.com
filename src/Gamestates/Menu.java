@@ -5,16 +5,29 @@ import ui.MenuButton;
 import ui.OptionsButtons;
 import ui.PlayingButton;
 import ui.QuitButton;
+import utilz.LoadSave;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 public class Menu extends States implements Gamestates {
     private MenuButton [] buttons = new MenuButton[3];
+    private BufferedImage background;
+    private int menuX, menuY, menuWidth, menuHeight;
     public Menu(Game game) {
         super(game);
+        loadBackground();
         loadButtons();
+    }
+
+    private void loadBackground() {
+        background = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND);
+        menuWidth = (int)(background.getWidth()*Game.SCALE);
+        menuHeight = (int) (background.getHeight()*Game.SCALE);
+        menuX = Game.GAME_WIDTH/2-menuWidth/2;
+        menuY = (int)(45*Game.SCALE);
     }
 
     private void loadButtons() {
@@ -37,6 +50,7 @@ public class Menu extends States implements Gamestates {
 
     @Override
     public void render(Graphics g) {
+        g.drawImage(background,menuX,menuY,menuWidth,menuHeight, null);
             for (MenuButton mb: buttons){
                 mb.draw(g);
             }
