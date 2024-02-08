@@ -19,12 +19,13 @@ public class QuitButton extends MenuButton {
     public void loadImgs() {
         super.loadImgs();
         BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.BUTTONS_ATLAS);
-        for (int i =0; i< imgs.length; i++)
-            imgs[i]= temp.getSubimage(i* B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
+        for (int i = 0; i < imgs.length; i++)
+            imgs[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
     }
 
     @Override
     public void applyGameState(Game game) {
         game.setState(new Quitting(game));
+        System.exit(0);
     }
 }
