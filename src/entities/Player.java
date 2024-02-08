@@ -19,7 +19,7 @@ public class Player extends Entity{
     private boolean jump = false;
     private boolean left, right;
     private BufferedImage [][] playerAnimation;
-    private int playerSpeed =3;
+    private float playerSpeed =1*Game.SCALE;
     private int [][] lvlData;
     private float xDrawOffset = 39* Game.SCALE;
     private float yDrawOffset = 40*Game.SCALE;
