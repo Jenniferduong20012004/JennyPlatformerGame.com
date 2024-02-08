@@ -35,7 +35,7 @@ public class Player extends Entity{
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimation();
-        initHitbox(x,y,18*Game.SCALE, 28*Game.SCALE);
+        initHitbox(x,y,(int) (18*Game.SCALE), (int)(28*Game.SCALE));
     }
     public void update (){
         //observer

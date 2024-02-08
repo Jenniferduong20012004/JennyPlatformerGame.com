@@ -14,12 +14,22 @@ import java.awt.image.BufferedImage;
 
 public class Menu extends States implements Gamestates {
     private MenuButton [] buttons = new MenuButton[3];
-    private BufferedImage background;
+    private BufferedImage background, name;
+    private int nameX, nameY, nameWidth, nameHeight;
     private int menuX, menuY, menuWidth, menuHeight;
     public Menu(Game game) {
         super(game);
+        loadName();
         loadBackground();
         loadButtons();
+    }
+
+    private void loadName() {
+        name = LoadSave.GetSpriteAtlas(LoadSave.NAME_ATLAS);
+        nameWidth = (int) (name.getWidth()*Game.SCALE*2.5);
+        nameHeight = (int)(name.getHeight()*Game.SCALE*2.5);
+        nameX = Game.GAME_WIDTH/2-nameWidth/2;
+        nameY = (int)(45*Game.SCALE-20);
     }
 
     private void loadBackground() {
@@ -27,13 +37,13 @@ public class Menu extends States implements Gamestates {
         menuWidth = (int)(background.getWidth()*Game.SCALE);
         menuHeight = (int) (background.getHeight()*Game.SCALE);
         menuX = Game.GAME_WIDTH/2-menuWidth/2;
-        menuY = (int)(45*Game.SCALE);
+        menuY = (int)(45*Game.SCALE+40);
     }
 
     private void loadButtons() {
-        buttons [0] = new PlayingButton(Game.GAME_WIDTH/2, (int)(150*Game.SCALE), 0);
-        buttons [1] = new OptionsButtons(Game.GAME_WIDTH/2, (int)(220*Game.SCALE), 1);
-        buttons [2] = new QuitButton(Game.GAME_WIDTH/2, (int)(290*Game.SCALE), 2);
+        buttons [0] = new PlayingButton(Game.GAME_WIDTH/2, (int)(180*Game.SCALE), 0);
+        buttons [1] = new OptionsButtons(Game.GAME_WIDTH/2, (int)(250*Game.SCALE), 1);
+        buttons [2] = new QuitButton(Game.GAME_WIDTH/2, (int)(320*Game.SCALE), 2);
     }
 
     @Override
@@ -50,6 +60,7 @@ public class Menu extends States implements Gamestates {
 
     @Override
     public void render(Graphics g) {
+        g.drawImage(name,nameX,nameY,nameWidth,nameHeight,null);
         g.drawImage(background,menuX,menuY,menuWidth,menuHeight, null);
             for (MenuButton mb: buttons){
                 mb.draw(g);
