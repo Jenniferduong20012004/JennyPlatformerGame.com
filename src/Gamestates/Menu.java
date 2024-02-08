@@ -14,14 +14,24 @@ import java.awt.image.BufferedImage;
 
 public class Menu extends States implements Gamestates {
     private MenuButton [] buttons = new MenuButton[3];
-    private BufferedImage background, name;
+    private BufferedImage background, name, pinkBack;
     private int nameX, nameY, nameWidth, nameHeight;
     private int menuX, menuY, menuWidth, menuHeight;
+    private int pinkX, pinkY, pinkWidth, pinkHeight;
     public Menu(Game game) {
         super(game);
+        loadPinkBack();
         loadName();
         loadBackground();
         loadButtons();
+    }
+
+    private void loadPinkBack() {
+        pinkBack = LoadSave.GetSpriteAtlas(LoadSave.PINK_ATLAS);
+        pinkWidth = (int) (pinkBack.getWidth()*Game.SCALE);
+        pinkHeight = (int)(pinkBack.getHeight()*Game.SCALE);
+        pinkX = 0;
+        pinkY = 0;
     }
 
     private void loadName() {
@@ -60,6 +70,7 @@ public class Menu extends States implements Gamestates {
 
     @Override
     public void render(Graphics g) {
+        g.drawImage(pinkBack,pinkX,pinkY,pinkWidth,pinkHeight,null);
         g.drawImage(name,nameX,nameY,nameWidth,nameHeight,null);
         g.drawImage(background,menuX,menuY,menuWidth,menuHeight, null);
             for (MenuButton mb: buttons){
