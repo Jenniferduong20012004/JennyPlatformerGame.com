@@ -1,6 +1,7 @@
 package ui;
 
 import Gamestates.Option;
+import Gamestates.Playing;
 import Main.Game;
 import utilz.LoadSave;
 
@@ -23,6 +24,6 @@ public class OptionsButtons extends MenuButton{
 
     @Override
     public void applyGameState(Game game) {
-        state = new Option(game);
+        game.setState(new Option(game));
     }
 }

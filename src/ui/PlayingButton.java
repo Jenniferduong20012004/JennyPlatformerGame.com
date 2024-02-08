@@ -24,7 +24,7 @@ public class PlayingButton extends MenuButton{
 
     @Override
     public void applyGameState(Game game) {
-        state = new Playing(game);
+        game.setState(new Playing(game));
     }
 
 }

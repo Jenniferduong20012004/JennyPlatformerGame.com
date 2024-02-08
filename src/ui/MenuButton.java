@@ -11,7 +11,7 @@ import static utilz.Constant.UI.Buttons.*;
 
 public abstract class MenuButton implements Buttons{
     protected int xPos, yPos, rowIndex, index;
-    protected BufferedImage imgs[], temp;
+    protected BufferedImage imgs[];
     protected boolean mouseOver, mouseClick;
     protected Rectangle bound;
     protected int xOffsetCenter = B_WIDTH/2;

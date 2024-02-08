@@ -1,5 +1,6 @@
 package ui;
 
+import Gamestates.Playing;
 import Gamestates.Quitting;
 import Main.Game;
 import utilz.LoadSave;
@@ -24,6 +25,6 @@ public class QuitButton extends MenuButton {
 
     @Override
     public void applyGameState(Game game) {
-        state = new Quitting(game);
+        game.setState(new Quitting(game));
     }
 }
