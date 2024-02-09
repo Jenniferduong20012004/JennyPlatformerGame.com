@@ -1,6 +1,7 @@
 package Gamestates;
 
 import Main.Game;
+import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
 
@@ -11,14 +12,16 @@ import java.awt.event.MouseEvent;
 public class Playing extends States implements Gamestates{
     private LevelManager levelManager;
     private Player player;
+    private EnemyManager enemyManager;
 
     public Playing(Game game) {
         super(game);
         initClasses();
     }
     private void initClasses() {
-        player = new Player(200,200,(int) (78 * Game.SCALE), (int) (58 * Game.SCALE));
         levelManager = new LevelManager(game);
+        player = new Player(200,200,(int) (78 * Game.SCALE), (int) (58 * Game.SCALE));
+        enemyManager = new EnemyManager(this);
     }
     public Player getPlayer(){
         return player;
@@ -37,12 +40,14 @@ public class Playing extends States implements Gamestates{
     public void update() {
         levelManager.update();
         player.update();
+        enemyManager.update();
     }
 
     @Override
     public void render(Graphics g) {
         levelManager.render(g);
         player.render(g);
+        enemyManager.render(g);
     }
 
     @Override

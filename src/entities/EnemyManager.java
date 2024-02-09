@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static utilz.Constant.EnemyConstants.*;
+import static utilz.LevelBuild.LEVEL_ONE;
 import static utilz.LoadSave.*;
 
 public class EnemyManager {
@@ -19,6 +20,12 @@ public class EnemyManager {
     public EnemyManager(Playing playing){
         this.playing = playing;
         loadEnemyImg();
+        addEnemies();
+    }
+
+    private void addEnemies() {
+        pigs = LoadSave.GetPigs(LEVEL_ONE);
+        kingpigs = LoadSave.GetKingPig (LEVEL_ONE);
     }
 
     private void loadEnemyImg() {

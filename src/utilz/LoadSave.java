@@ -1,12 +1,15 @@
 package utilz;
 
 import Main.Game;
+import entities.KingPig;
+import entities.Pig;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class LoadSave {
     public static final String PLAYER_ATTACK = "Player/Attack (78x58).png";
@@ -21,8 +24,6 @@ public class LoadSave {
     public static final String PLAYER_RUN = "Player/Run (78x58).png";
     public static final String TERRAIN_ATLAS = "Level/Terrain (32x32).png";
     public static final String DECORATION_ATLAS= "Level/Decorations (32x32).png";
-    public static final String OUTSIDER_ATLAS = "Level/outside_sprites.png";
-    public static final String LEVEL_ONE = "Level/level_one_data_long.png";
     public static final String BUTTONS_ATLAS = "UI/button_atlas.png";
     public static final String MENU_BACKGROUND = "UI/menu_background.png";
     public static final String NAME_ATLAS = "UI/Kings and Pigs.png";
@@ -80,5 +81,28 @@ public class LoadSave {
         int [][] lvl = lvlChoose;
         return lvl;
         }
+        public static ArrayList<Pig> GetPigs(int [][] lvlChoose){
+            ArrayList<Pig> list = new ArrayList<>();
+            for (int i =0; i< lvlChoose.length;i++){
+                for (int j =0; j<lvlChoose[i].length;j++){
+                    if (lvlChoose [i][j]==216){
+                        list.add (new Pig(j*Game.TILES_SIZE,i*Game.TILES_SIZE));
+                    }
+                }
+            }
+            return list;
+        }
+
+    public static ArrayList<KingPig> GetKingPig(int[][] lvlChoose) {
+        ArrayList<KingPig> list = new ArrayList<>();
+        for (int i =0; i< lvlChoose.length;i++){
+            for (int j =0; j<lvlChoose[i].length;j++){
+                if (lvlChoose [i][j]==217){
+                    list.add (new KingPig(j*Game.TILES_SIZE,i*Game.TILES_SIZE));
+                }
+            }
+        }
+        return list;
     }
+}
 

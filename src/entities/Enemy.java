@@ -2,7 +2,7 @@ package entities;
 import utilz.Constant.EnemyConstants;
 
 public abstract class Enemy extends Entity{
-    protected int aniIndex, enemyState, enemyType;
+    protected int aniIndex, enemyState=5, enemyType;
     protected int aniTick, aniSpeed = 25;
 
 
