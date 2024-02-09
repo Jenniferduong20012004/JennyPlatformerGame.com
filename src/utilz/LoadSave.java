@@ -27,6 +27,24 @@ public class LoadSave {
     public static final String MENU_BACKGROUND = "UI/menu_background.png";
     public static final String NAME_ATLAS = "UI/Kings and Pigs.png";
     public static final String PINK_ATLAS = "UI/background_menu.png";
+    public static final String PIG_ATTACK = "Enemy/Attack (34x28).png";
+    public static final String PIG_DEAD = "Enemy/Dead (34x28).png";
+    public static final String PIG_FALL = "Enemy/Fall (34x28).png";
+    public static final String PIG_GROUND = "Enemy/Ground (34x28).png";
+    public static final String PIG_HIT = "Enemy/Hit (34x28).png";
+    public static final String PIG_IDLE = "Enemy/Idle (34x28).png";
+    public static final String PIG_JUMP = "Enemy/Jump (34x28).png";
+    public static final String PIG_RUN = "Enemy/Run (34x28).png";
+    public static final String K_PIG_ATTACK = "Enemy/Attack (38x28).png";
+    public static final String K_PIG_DEAD = "Enemy/Dead (38x28).png";
+    public static final String K_PIG_FALL = "Enemy/Fall (38x28).png";
+    public static final String K_PIG_GROUND = "Enemy/Ground (38x28).png";
+    public static final String K_PIG_HIT = "Enemy/Hit (38x28).png";
+    public static final String K_PIG_IDLE = "Enemy/Idle (38x28).png";
+    public static final String K_PIG_JUMP = "Enemy/Jump (38x28).png";
+    public static final String K_PIG_RUN = "Enemy/Run (38x28).png";
+
+
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img=null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+fileName);
