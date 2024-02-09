@@ -1,5 +1,5 @@
 package entities;
-import utilz.Constant.EnemyConstants
+import utilz.Constant.EnemyConstants;
 
 public abstract class Enemy extends Entity{
     protected int aniIndex, enemyState, enemyType;

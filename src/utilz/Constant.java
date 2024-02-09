@@ -17,6 +17,19 @@ public class Constant {
         public static final int PIG_HEIGHT_DEFAULT = 28;
         public static final int PIG_WIDTH = (int) (PIG_WIDTH_DEFAULT * Game.SCALE);
         public static final int PIG_HEIGHT = (int) (PIG_HEIGHT_DEFAULT * Game.SCALE);
+        public static final int KING_PIG = 1;
+        public static final int K_ATTACK = 0;
+        public static final int K_DEAD = 1;
+        public static final int K_FALLING = 2;
+        public static final int K_GROUND = 3;
+        public static final int K_HIT = 4;
+        public static final int K_IDLE = 5;
+        public static final int K_JUMP = 6;
+        public static final int K_RUN = 7;
+        public static final int K_PIG_WIDTH_DEFAULT = 38;
+        public static final int K_PIG_HEIGHT_DEFAULT = 28;
+        public static final int K_PIG_WIDTH = (int) (PIG_WIDTH_DEFAULT * Game.SCALE);
+        public static final int K_PIG_HEIGHT = (int) (PIG_HEIGHT_DEFAULT * Game.SCALE);
 
         public static int getSpriteAmount(int enemyType, int enemyState) {
             switch (enemyType) {
@@ -36,9 +49,32 @@ public class Constant {
                             return 2;
                         case DEAD:
                             return 4;
+                        case RUN:
+                            return 6;
                         default:
                             return 0;
 
+                    }
+                case KING_PIG:
+                    switch(enemyState){
+                        case K_ATTACK:
+                            return 5;
+                        case K_IDLE:
+                            return 12;
+                        case K_JUMP:
+                            return 1;
+                        case K_FALLING:
+                            return 1;
+                        case K_GROUND:
+                            return 1;
+                        case K_HIT:
+                            return 2;
+                        case K_DEAD:
+                            return 4;
+                        case K_RUN:
+                            return 6;
+                        default:
+                            return 0;
                     }
             }
             return 0;
