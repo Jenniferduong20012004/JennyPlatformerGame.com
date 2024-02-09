@@ -3,6 +3,47 @@ package utilz;
 import Main.Game;
 
 public class Constant {
+    public static class EnemyConstants {
+        public static final int PIG = 0;
+        public static final int ATTACK = 0;
+        public static final int DEAD = 1;
+        public static final int FALLING = 2;
+        public static final int GROUND = 3;
+        public static final int HIT = 4;
+        public static final int IDLE = 5;
+        public static final int JUMP = 6;
+        public static final int RUN = 7;
+        public static final int PIG_WIDTH_DEFAULT = 34;
+        public static final int PIG_HEIGHT_DEFAULT = 28;
+        public static final int PIG_WIDTH = (int) (PIG_WIDTH_DEFAULT * Game.SCALE);
+        public static final int PIG_HEIGHT = (int) (PIG_HEIGHT_DEFAULT * Game.SCALE);
+
+        public static int getSpriteAmount(int enemyType, int enemyState) {
+            switch (enemyType) {
+                case PIG:
+                    switch (enemyState) {
+                        case ATTACK:
+                            return 5;
+                        case IDLE:
+                            return 11;
+                        case JUMP:
+                            return 1;
+                        case FALLING:
+                            return 1;
+                        case GROUND:
+                            return 1;
+                        case HIT:
+                            return 2;
+                        case DEAD:
+                            return 4;
+                        default:
+                            return 0;
+
+                    }
+            }
+            return 0;
+        }
+    }
     public static class UI{
         public static class Buttons{
             public static final int B_WIDTH_DEFAULT = 140;
