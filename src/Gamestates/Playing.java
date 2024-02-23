@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import static utilz.LevelOne.Enemy_levelOne;
+import static utilz.LevelOne.LEVEL_ONE;
+
 public class Playing extends States implements Gamestates{
     private LevelManager levelManager;
     private Player player;
@@ -40,7 +43,7 @@ public class Playing extends States implements Gamestates{
     public void update() {
         levelManager.update();
         player.update();
-        enemyManager.update();
+        enemyManager.update(LEVEL_ONE);
     }
 
     @Override

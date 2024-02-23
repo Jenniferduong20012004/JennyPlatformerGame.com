@@ -85,7 +85,7 @@ public class LoadSave {
             ArrayList<Pig> list = new ArrayList<>();
             for (int i =0; i< lvlChoose.length;i++){
                 for (int j =0; j<lvlChoose[i].length;j++){
-                    if (lvlChoose [i][j]==216){
+                    if (lvlChoose [i][j]==1){
                         list.add (new Pig(j*Game.TILES_SIZE,i*Game.TILES_SIZE));
                     }
                 }
@@ -97,7 +97,7 @@ public class LoadSave {
         ArrayList<KingPig> list = new ArrayList<>();
         for (int i =0; i< lvlChoose.length;i++){
             for (int j =0; j<lvlChoose[i].length;j++){
-                if (lvlChoose [i][j]==217){
+                if (lvlChoose [i][j]==2){
                     list.add (new KingPig(j*Game.TILES_SIZE,i*Game.TILES_SIZE));
                 }
             }

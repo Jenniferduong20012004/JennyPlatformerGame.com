@@ -2,6 +2,7 @@ package levels;
 
 import Main.Game;
 import utilz.LevelBuild;
+import utilz.LevelOne;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -16,7 +17,7 @@ public class LevelManager {
     public LevelManager (Game game){
         this.game = game;
         importOutsiderSprites();
-        levelOne = new Level(LoadSave.GetLevelData(LevelBuild.LEVEL_ONE));
+        levelOne = new Level(LoadSave.GetLevelData(LevelOne.LEVEL_ONE));
     }
 
     private void importOutsiderSprites() {

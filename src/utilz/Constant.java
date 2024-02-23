@@ -17,6 +17,8 @@ public class Constant {
         public static final int PIG_HEIGHT_DEFAULT = 28;
         public static final int PIG_WIDTH = (int) (PIG_WIDTH_DEFAULT * Game.SCALE);
         public static final int PIG_HEIGHT = (int) (PIG_HEIGHT_DEFAULT * Game.SCALE);
+        public static int PIG_DRAWOFFSET_X = (int) (10*Game.SCALE);
+        public static int PIG_DRAWOFFSET_Y = (int) (10*Game.SCALE);
         public static final int KING_PIG = 1;
         public static final int K_ATTACK = 0;
         public static final int K_DEAD = 1;
@@ -28,9 +30,10 @@ public class Constant {
         public static final int K_RUN = 7;
         public static final int K_PIG_WIDTH_DEFAULT = 38;
         public static final int K_PIG_HEIGHT_DEFAULT = 28;
-        public static final int K_PIG_WIDTH = (int) (PIG_WIDTH_DEFAULT * Game.SCALE);
-        public static final int K_PIG_HEIGHT = (int) (PIG_HEIGHT_DEFAULT * Game.SCALE);
-
+        public static final int K_PIG_WIDTH = (int) (K_PIG_WIDTH_DEFAULT * Game.SCALE);
+        public static final int K_PIG_HEIGHT = (int) (K_PIG_HEIGHT_DEFAULT * Game.SCALE);
+        public static int K_PIG_DRAWOFFSET_X = (int) (10*Game.SCALE);
+        public static int K_PIG_DRAWOFFSET_Y = (int) (10*Game.SCALE);
         public static int getSpriteAmount(int enemyType, int enemyState) {
             switch (enemyType) {
                 case PIG:

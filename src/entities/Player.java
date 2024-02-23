@@ -1,10 +1,7 @@
 package entities;
 
 import Main.Game;
-import utilz.Constant;
-import utilz.LevelBuild;
-import utilz.LoadSave;
-import utilz.helpMethods;
+import utilz.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -22,8 +19,8 @@ public class Player extends Entity{
     private BufferedImage [][] playerAnimation;
     private float playerSpeed =1*Game.SCALE;
     private int [][] lvlData;
-    private float xDrawOffset = 39* Game.SCALE;
-    private float yDrawOffset = 40*Game.SCALE;
+    private float xDrawOffset = 20* Game.SCALE;
+    private float yDrawOffset = 16*Game.SCALE;
     private float airSpeed =0f;
     private float gravity = 0.04f *Game.SCALE;
     private float jumpSpeed = -2.25f*Game.SCALE;
@@ -40,13 +37,13 @@ public class Player extends Entity{
     }
     public void update (){
         //observer
-        loadlvlData(LevelBuild.LEVEL_ONE);
+        loadlvlData(LevelOne.LEVEL_ONE);
         updatePos();
         updateAnimationTick();
         setAnimation();
     }
     public void render(Graphics g){
-        g.drawImage(playerAnimation[playerAction][aniIndex],(int)(hitbox.x-xDrawOffset),(int)(hitbox.y-yDrawOffset),156,116,null);
+        g.drawImage(playerAnimation[playerAction][aniIndex],(int)(hitbox.x-xDrawOffset),(int)(hitbox.y-yDrawOffset),width,height,null);
     }
     private void loadAnimation() {
         playerAnimation = new BufferedImage[10][11];

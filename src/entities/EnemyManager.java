@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static utilz.Constant.EnemyConstants.*;
-import static utilz.LevelBuild.LEVEL_ONE;
 import static utilz.LoadSave.*;
+import static utilz.LevelOne.*;
 
 public class EnemyManager {
     private Playing playing;
@@ -24,8 +24,8 @@ public class EnemyManager {
     }
 
     private void addEnemies() {
-        pigs = LoadSave.GetPigs(LEVEL_ONE);
-        kingpigs = LoadSave.GetKingPig (LEVEL_ONE);
+        pigs = LoadSave.GetPigs(Enemy_levelOne);
+        kingpigs = LoadSave.GetKingPig (Enemy_levelOne);
     }
 
     private void loadEnemyImg() {
@@ -64,11 +64,11 @@ public class EnemyManager {
         BufferedImage k_run = LoadSave.GetSpriteAtlas(LoadSave.K_PIG_RUN);
         for (int i =0; i <Constant.EnemyConstants.getSpriteAmount(KING_PIG,K_RUN); i++){kingPigArr[K_RUN][i] =k_run.getSubimage(i*38,0,38,28);}
     }
-    public void update(){
+    public void update(int [][] lvlData){
         for (Pig pig: pigs)
-            pig.update();
+            pig.update(lvlData);
         for (KingPig kings: kingpigs)
-            kings.update();
+            kings.update(lvlData);
     }
     public void render(Graphics g){
         renderPigs(g);
@@ -77,13 +77,13 @@ public class EnemyManager {
 
     private void renderKingPigs(Graphics g) {
         for (KingPig pig : kingpigs) {
-            g.drawImage(kingPigArr[pig.getEnemyState()][pig.getAniIndex()], (int) pig.getHitbox().x, (int) pig.getHitbox().y, K_PIG_WIDTH, K_PIG_HEIGHT, null);
+            g.drawImage(kingPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-K_PIG_DRAWOFFSET_X), (int) (pig.getHitbox().y-K_PIG_DRAWOFFSET_Y), K_PIG_WIDTH, K_PIG_HEIGHT, null);
         }
     }
 
     private void renderPigs(Graphics g) {
         for (Pig pig: pigs){
-            g.drawImage(pigArr[pig.getEnemyState()][pig.getAniIndex()], (int)pig.getHitbox().x, (int)pig.getHitbox().y,PIG_WIDTH,PIG_HEIGHT,null);
+            g.drawImage(pigArr[pig.getEnemyState()][pig.getAniIndex()], (int)(pig.getHitbox().x-PIG_DRAWOFFSET_X), (int)(pig.getHitbox().y-PIG_DRAWOFFSET_Y),PIG_WIDTH,PIG_HEIGHT,null);
         }
     }
 }
