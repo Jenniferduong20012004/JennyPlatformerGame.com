@@ -38,4 +38,24 @@ public class UrmButton extends PauseButton{
             index = 2;
         }
     }
+    public void resetBools(){
+        mousePress = false;
+        mouseOver = false;
+    }
+
+    public boolean isMousePress() {
+        return mousePress;
+    }
+
+    public void setMousePress(boolean mousePress) {
+        this.mousePress = mousePress;
+    }
+
+    public void setMouseOver(boolean mouseOver) {
+        this.mouseOver = mouseOver;
+    }
+
+    public boolean isMouseOver() {
+        return mouseOver;
+    }
 }

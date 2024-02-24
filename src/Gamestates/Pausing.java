@@ -16,6 +16,7 @@ public class Pausing extends States implements Gamestates{
     private BufferedImage background;
     private int bgX, bgY, bgW, bgH;
     private SoundButton musicButton, sfxButton;
+    private Constant.UI.UmrButtons menuB, replayB, unpauseB;
     public Pausing (Game game){
         super(game);
         loadBackground();
