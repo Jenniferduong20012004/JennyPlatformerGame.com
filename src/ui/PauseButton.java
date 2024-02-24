@@ -34,4 +34,7 @@ public abstract class PauseButton implements Buttons{
     public void initBound() {
 
     }
+    public Rectangle getBounds(){
+        return bounds;
+    }
 }

@@ -59,6 +59,7 @@ public abstract class MenuButton implements Buttons{
         mouseOver= false;
         mouseClick = true;
     }
+    @Override
     public Rectangle getBounds(){
         return bound;
     }

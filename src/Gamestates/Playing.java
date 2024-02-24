@@ -16,7 +16,7 @@ public class Playing extends States implements Gamestates{
     private LevelManager levelManager;
     private Player player;
     private EnemyManager enemyManager;
-    private boolean paused;
+    private boolean paused=true;
     private Pausing pause;
 
     public Playing(Game game) {
@@ -27,7 +27,7 @@ public class Playing extends States implements Gamestates{
         levelManager = new LevelManager(game);
         player = new Player(200,200,(int) (78 * Game.SCALE), (int) (58 * Game.SCALE));
         enemyManager = new EnemyManager(this);
-        pause = new Pausing();
+        pause = new Pausing(game);
     }
     public Player getPlayer(){
         return player;
@@ -47,6 +47,7 @@ public class Playing extends States implements Gamestates{
         levelManager.update();
         player.update();
         enemyManager.update(LEVEL_ONE);
+        pause.update();
     }
 
     @Override
@@ -59,17 +60,23 @@ public class Playing extends States implements Gamestates{
 
     @Override
     public void Mouseclick(MouseEvent e) {
-
+        if (paused){
+            pause. Mouseclick(e);
+        }
     }
 
     @Override
     public void MouseRealease(MouseEvent e) {
-
+        if (paused){
+            pause. MouseRealease(e);
+        }
     }
 
     @Override
     public void MouseMove(MouseEvent e) {
-
+        if (paused){
+            pause. MouseMove(e);
+        }
     }
 
     @Override

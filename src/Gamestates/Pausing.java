@@ -2,6 +2,7 @@ package Gamestates;
 
 import Main.Game;
 import ui.SoundButton;
+import utilz.Constant;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -11,11 +12,12 @@ import java.awt.image.BufferedImage;
 
 import static utilz.Constant.UI.PauseButtons.SOUND_SIZE;
 
-public class Pausing implements Gamestates{
+public class Pausing extends States implements Gamestates{
     private BufferedImage background;
     private int bgX, bgY, bgW, bgH;
     private SoundButton musicButton, sfxButton;
-    public Pausing (){
+    public Pausing (Game game){
+        super(game);
         loadBackground();
         createSoundButtons();
     }
@@ -43,7 +45,8 @@ public class Pausing implements Gamestates{
 
     @Override
     public void update() {
-
+        musicButton.update();
+        sfxButton.update();
     }
 
     @Override
@@ -55,17 +58,40 @@ public class Pausing implements Gamestates{
 
     @Override
     public void Mouseclick(MouseEvent e) {
-
+        if (isIn(e, musicButton)){
+            musicButton.setMousePress(true);
+        }
+        else if (isIn (e, sfxButton)) {
+            sfxButton.setMousePress(true);
+        }
     }
 
     @Override
     public void MouseRealease(MouseEvent e) {
-
+        if (isIn(e, musicButton)) {
+            if (musicButton.isMousePress()) {
+                musicButton.setMuted(!musicButton.isMuted());
+            }
+        }
+        else if (isIn (e, sfxButton)) {
+            if (sfxButton.isMousePress()) {
+                sfxButton.setMuted(!sfxButton.isMuted());
+            }
+        }
+        musicButton.resetBools();
+        sfxButton.resetBools();
     }
 
     @Override
     public void MouseMove(MouseEvent e) {
-
+        musicButton.setMouseOver(false);
+        sfxButton.setMouseOver(false);
+        if (isIn(e, musicButton)){
+            musicButton.setMouseOver(true);
+        }
+        else if (isIn(e,sfxButton)){
+            sfxButton.setMouseOver(true);
+        }
     }
 
     @Override
@@ -77,4 +103,6 @@ public class Pausing implements Gamestates{
     public void KeyRealease(KeyEvent e) {
 
     }
+
+
 }
