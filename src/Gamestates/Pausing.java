@@ -31,8 +31,8 @@ public class Pausing extends States implements Gamestates{
         int replayX = (int)(387*Game.SCALE);
         int unpauseX = (int)(462*Game.SCALE);
         int bY = (int)(325*Game.SCALE);
-        menuB = new UrmButton(menuX,bY, UMR_SIZE, UMR_SIZE, 2 );
-        replayB= new UrmButton(replayX,bY, UMR_SIZE, UMR_SIZE, 2 );
+        menuB = new UrmButton(menuX,bY, UMR_SIZE, UMR_SIZE, 0 );
+        replayB= new UrmButton(replayX,bY, UMR_SIZE, UMR_SIZE, 1 );
         unpauseB= new UrmButton(unpauseX,bY, UMR_SIZE, UMR_SIZE, 2 );
     }
 
@@ -61,6 +61,9 @@ public class Pausing extends States implements Gamestates{
     public void update() {
         musicButton.update();
         sfxButton.update();
+        menuB.update();
+        replayB.update();
+        unpauseB.update();
     }
 
     @Override
@@ -68,6 +71,9 @@ public class Pausing extends States implements Gamestates{
         g.drawImage (background, bgX, bgY,bgW, bgH, null);
         musicButton.draw(g);
         sfxButton.draw(g);
+        menuB.draw(g);
+        replayB.draw(g);
+        unpauseB.draw(g);
     }
 
     @Override
@@ -77,6 +83,15 @@ public class Pausing extends States implements Gamestates{
         }
         else if (isIn (e, sfxButton)) {
             sfxButton.setMousePress(true);
+        }
+        else if (isIn (e, menuB)){
+            menuB.setMousePress(true);
+        }
+        else if (isIn(e, replayB)){
+            replayB.setMousePress(true);
+        }
+        else if (isIn (e, unpauseB)) {
+            unpauseB.setMousePress(true);
         }
     }
 
