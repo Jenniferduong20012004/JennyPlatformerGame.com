@@ -2,6 +2,7 @@ package Gamestates;
 
 import Main.Game;
 import ui.SoundButton;
+import ui.UrmButton;
 import utilz.Constant;
 import utilz.LoadSave;
 
@@ -11,16 +12,28 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import static utilz.Constant.UI.PauseButtons.SOUND_SIZE;
+import static utilz.Constant.UI.UmrButtons.UMR_SIZE;
 
 public class Pausing extends States implements Gamestates{
     private BufferedImage background;
     private int bgX, bgY, bgW, bgH;
     private SoundButton musicButton, sfxButton;
-    private Constant.UI.UmrButtons menuB, replayB, unpauseB;
+    private UrmButton menuB, replayB, unpauseB;
     public Pausing (Game game){
         super(game);
         loadBackground();
         createSoundButtons();
+        createUmrButtons();
+    }
+
+    private void createUmrButtons() {
+        int menuX = (int)(313*Game.SCALE);
+        int replayX = (int)(387*Game.SCALE);
+        int unpauseX = (int)(462*Game.SCALE);
+        int bY = (int)(325*Game.SCALE);
+        menuB = new UrmButton(menuX,bY, UMR_SIZE, UMR_SIZE, 2 );
+        replayB= new UrmButton(replayX,bY, UMR_SIZE, UMR_SIZE, 2 );
+        unpauseB= new UrmButton(unpauseX,bY, UMR_SIZE, UMR_SIZE, 2 );
     }
 
     private void createSoundButtons() {
