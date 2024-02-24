@@ -22,10 +22,20 @@ public class UrmButton extends PauseButton{
         umrImg = new BufferedImage[3];
         for (int i =0; i< umrImg.length; i++){
                 umrImg[i] = temp.getSubimage(i* Constant.UI.UmrButtons.UMR_SIZE_DEFAULT, rowIndex*Constant.UI.UmrButtons.UMR_SIZE_DEFAULT, Constant.UI.UmrButtons.UMR_SIZE_DEFAULT, Constant.UI.UmrButtons.UMR_SIZE_DEFAULT);
-            }
-        }
-        @Override
-    public void draw(Graphics g){
-        g.drawImage(umrImg[index], x, y, Constant.UI.UmrButtons.UMR_SIZE,Constant.UI.UmrButtons.UMR_SIZE, null );
         }
     }
+    @Override
+    public void draw(Graphics g){
+        g.drawImage(umrImg[index], x, y, Constant.UI.UmrButtons.UMR_SIZE,Constant.UI.UmrButtons.UMR_SIZE, null );
+    }
+    @Override
+    public void update(){
+        index =0;
+        if (mouseOver){
+            index =1;
+        }
+        if (mousePress){
+            index = 2;
+        }
+    }
+}
