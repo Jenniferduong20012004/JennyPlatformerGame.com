@@ -97,6 +97,10 @@ public class Constant {
             public static final int SOUND_SIZE_DEFAULT=42;
             public static final int SOUND_SIZE = (int)(Game.SCALE*SOUND_SIZE_DEFAULT);
         }
+        public static class UmrButtons{
+            public static final int UMR_SIZE_DEFAULT=56;
+            public static final int UMR_SIZE = (int)(Game.SCALE*UMR_SIZE_DEFAULT);
+        }
     }
     public static class Directions{
         public static final int LEFT =0;

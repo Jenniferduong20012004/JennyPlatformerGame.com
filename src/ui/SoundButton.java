@@ -74,5 +74,4 @@ public class SoundButton extends PauseButton{
         mouseOver = false;
         mousePress = false;
     }
-
 }
