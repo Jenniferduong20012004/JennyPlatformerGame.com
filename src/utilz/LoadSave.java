@@ -44,7 +44,7 @@ public class LoadSave {
     public static final String K_PIG_IDLE = "Enemy/Idle (38x28).png";
     public static final String K_PIG_JUMP = "Enemy/Jump (38x28).png";
     public static final String K_PIG_RUN = "Enemy/Run (38x28).png";
-
+    public static final String PAUSE_BACKGROUND ="UI/pause_menu.png";
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img=null;

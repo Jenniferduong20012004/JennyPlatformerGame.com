@@ -16,6 +16,8 @@ public class Playing extends States implements Gamestates{
     private LevelManager levelManager;
     private Player player;
     private EnemyManager enemyManager;
+    private boolean paused;
+    private Pausing pause;
 
     public Playing(Game game) {
         super(game);
@@ -25,6 +27,7 @@ public class Playing extends States implements Gamestates{
         levelManager = new LevelManager(game);
         player = new Player(200,200,(int) (78 * Game.SCALE), (int) (58 * Game.SCALE));
         enemyManager = new EnemyManager(this);
+        pause = new Pausing();
     }
     public Player getPlayer(){
         return player;
@@ -51,6 +54,7 @@ public class Playing extends States implements Gamestates{
         levelManager.render(g);
         player.render(g);
         enemyManager.render(g);
+        pause.render(g);
     }
 
     @Override
