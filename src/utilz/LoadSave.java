@@ -47,6 +47,7 @@ public class LoadSave {
     public static final String PAUSE_BACKGROUND ="UI/pause_menu.png";
     public static final String SOUND_BUTTON = "UI/sound_button.png";
     public static final String URM_BUTTON = "UI/urm_buttons.png";
+    public static final String VOLUME_BUTTON = "UI/volume_buttons.png";
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img=null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+fileName);
