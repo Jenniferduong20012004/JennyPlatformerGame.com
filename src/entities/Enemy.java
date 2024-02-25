@@ -14,7 +14,7 @@ public abstract class Enemy extends Entity{
     protected boolean inAir = false;
     protected float fallSpeed;
     protected float gravity = 0.04f * Game.SCALE;
-    protected float walkSpeed = 1*Game.SCALE;
+    protected float walkSpeed =(float )(0.5*Game.SCALE);
     protected int walkDir = LEFT;
 
     public Enemy(float x, float y, int width, int height,int enemyType) {
@@ -22,7 +22,7 @@ public abstract class Enemy extends Entity{
         this.enemyType=enemyType;
         initHitbox (x,y,width, height);
     }
-    public void updateAnimationTick(){
+    protected void updateAnimationTick(){
         aniTick++;
         if(aniTick >=aniSpeed){
             aniTick =0;
@@ -32,18 +32,21 @@ public abstract class Enemy extends Entity{
             }
         }
     }
-    public void update(int [][] lvlData){
-        updateMove(lvlData);
-        updateAnimationTick();
-    }
-    public void updateMove(int [][] lvlData){
-        if (firstUpdate){
-            if (!helpMethods.IsEntityOnFloor(hitbox,lvlData)){
-                inAir = true;
-            }
-            firstUpdate = false;
+    protected void changeWalkDir() {
+        if (walkDir == LEFT){
+            walkDir = RIGHT;
         }
-        if (inAir) {
+        else {
+            walkDir = LEFT;
+        }
+    }
+    protected void firstUpdateCheck(int[][] lvlData){
+        if (!helpMethods.IsEntityOnFloor(hitbox,lvlData)){
+            inAir = true;
+        }
+        firstUpdate = false;
+    }
+    protected void updateInAir (int[][] lvlData){
             if (CanMoveHere(hitbox.x, hitbox.y, hitbox.width, hitbox.height, lvlData)) {
                 hitbox.y += fallSpeed;
                 fallSpeed += gravity;
@@ -52,42 +55,7 @@ public abstract class Enemy extends Entity{
                 inAir = false;
                 hitbox.y = GetEntityYPosUnderOfAboveFloor(hitbox, fallSpeed);
             }
-        }
-        else{
-            switch (enemyState){
-                case IDLE:
-                    enemyState = RUN;
-                    break;
-                case RUN:
-                    float xSpeed = 0;
-                    if (walkDir == LEFT ){
-                        xSpeed += walkSpeed;
-                    }
-                    else{
-                        xSpeed -= walkSpeed;
-                    }
-                    if (CanMoveHere(hitbox.x+xSpeed, hitbox.y, hitbox.width,hitbox.height, lvlData)){
-                        if (IsFloor(hitbox, xSpeed, lvlData)){
-                            hitbox.x += xSpeed;
-                            return;
-                        }
-                        changeWalkDir();
-                    }
-                    break;
-            }
-        }
-
     }
-
-    private void changeWalkDir() {
-        if (walkDir == LEFT){
-            walkDir = RIGHT;
-        }
-        else {
-            walkDir = LEFT;
-        }
-    }
-
     public int getAniIndex(){return aniIndex;}
     public int getEnemyState(){return enemyState;}
 }

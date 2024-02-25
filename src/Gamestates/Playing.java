@@ -83,7 +83,7 @@ public class Playing extends States implements Gamestates{
     public void render(Graphics g) {
         levelManager.render(g, xLvlOffset);
         player.render(g,xLvlOffset);
-        enemyManager.render(g);
+        enemyManager.render(g,xLvlOffset);
         if (paused) {
             g.setColor (new Color (0,0,0,150));
             g.fillRect (0,0,Game.GAME_WIDTH, Game.GAME_HEIGHT);

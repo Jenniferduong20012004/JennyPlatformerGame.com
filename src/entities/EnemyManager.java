@@ -70,20 +70,20 @@ public class EnemyManager {
         for (KingPig kings: kingpigs)
             kings.update(lvlData);
     }
-    public void render(Graphics g){
-        renderPigs(g);
-        renderKingPigs(g);
+    public void render(Graphics g, int lvlOffset){
+        renderPigs(g,lvlOffset);
+        renderKingPigs(g,lvlOffset);
     }
 
-    private void renderKingPigs(Graphics g) {
+    private void renderKingPigs(Graphics g, int lvlOffset) {
         for (KingPig pig : kingpigs) {
-            g.drawImage(kingPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-K_PIG_DRAWOFFSET_X), (int) (pig.getHitbox().y-K_PIG_DRAWOFFSET_Y), K_PIG_WIDTH, K_PIG_HEIGHT, null);
+            g.drawImage(kingPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-K_PIG_DRAWOFFSET_X-lvlOffset), (int) (pig.getHitbox().y-K_PIG_DRAWOFFSET_Y), K_PIG_WIDTH, K_PIG_HEIGHT, null);
         }
     }
 
-    private void renderPigs(Graphics g) {
+    private void renderPigs(Graphics g, int lvlOffset) {
         for (Pig pig: pigs){
-            g.drawImage(pigArr[pig.getEnemyState()][pig.getAniIndex()], (int)(pig.getHitbox().x-PIG_DRAWOFFSET_X), (int)(pig.getHitbox().y-PIG_DRAWOFFSET_Y),PIG_WIDTH,PIG_HEIGHT,null);
+            g.drawImage(pigArr[pig.getEnemyState()][pig.getAniIndex()], (int)(pig.getHitbox().x-PIG_DRAWOFFSET_X-lvlOffset), (int)(pig.getHitbox().y-PIG_DRAWOFFSET_Y-5),PIG_WIDTH,PIG_HEIGHT,null);
         }
     }
 }
