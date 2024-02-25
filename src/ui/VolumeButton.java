@@ -21,8 +21,8 @@ public class VolumeButton extends ui.PauseButton{
         buttonX = x+width/2;
         this.x = x;
         this.width = width;
-        minX=x;
-        maxX = x+width;
+        minX=x+VOLUME_WIDTH/2;
+        maxX = x+width-VOLUME_WIDTH/2;
         loadImgs();
     }
     @Override
