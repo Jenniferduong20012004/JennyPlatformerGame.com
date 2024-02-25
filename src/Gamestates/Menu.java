@@ -89,7 +89,7 @@ public class Menu extends States implements Gamestates {
     }
 
     @Override
-    public void MouseRealease(MouseEvent e) {
+    public void MouseRelease(MouseEvent e) {
         for (MenuButton mb: buttons){
             if (isIn(e,mb)){
                 if (mb.getMouseClick()){
@@ -129,6 +129,11 @@ public class Menu extends States implements Gamestates {
 
     @Override
     public void KeyRealease(KeyEvent e) {
+
+    }
+
+    @Override
+    public void mouseDrag(MouseEvent e) {
 
     }
 }

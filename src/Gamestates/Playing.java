@@ -72,9 +72,9 @@ public class Playing extends States implements Gamestates{
     }
 
     @Override
-    public void MouseRealease(MouseEvent e) {
+    public void MouseRelease(MouseEvent e) {
         if (paused){
-            pause. MouseRealease(e);
+            pause. MouseRelease(e);
         }
     }
 
@@ -123,6 +123,14 @@ public class Playing extends States implements Gamestates{
                 break;
         }
     }
+
+    @Override
+    public void mouseDrag(MouseEvent e) {
+        if (paused){
+            pause.mouseDrag(e);
+        }
+    }
+
     public void unPauseGame(){
         paused = false;
     }

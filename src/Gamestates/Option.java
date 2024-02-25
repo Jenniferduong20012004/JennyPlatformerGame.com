@@ -32,7 +32,7 @@ public class Option extends States implements Gamestates{
     }
 
     @Override
-    public void MouseRealease(MouseEvent e) {
+    public void MouseRelease(MouseEvent e) {
 
     }
 
@@ -48,6 +48,11 @@ public class Option extends States implements Gamestates{
 
     @Override
     public void KeyRealease(KeyEvent e) {
+
+    }
+
+    @Override
+    public void mouseDrag(MouseEvent e) {
 
     }
 }

@@ -4,6 +4,7 @@ import utilz.Constant;
 import utilz.LoadSave;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import static utilz.Constant.UI.VolumeButtons.*;
@@ -13,10 +14,15 @@ public class VolumeButton extends ui.PauseButton{
     private BufferedImage slideImg;
     private int index =0;
     private boolean mouseOver,mousePress;
-    private int buttonX;
+    private int buttonX, minX, maxX;
     public VolumeButton(int x, int y, int width, int height) {
-        super(x=width/2, y, VOLUME_WIDTH, height);
+        super(x+width/2, y, VOLUME_WIDTH, height);
+        bounds.x -= VOLUME_WIDTH/2;
         buttonX = x+width/2;
+        this.x = x;
+        this.width = width;
+        minX=x;
+        maxX = x+width;
         loadImgs();
     }
     @Override
@@ -40,6 +46,37 @@ public class VolumeButton extends ui.PauseButton{
     @Override
     public void draw(Graphics g){
         g.drawImage (slideImg, x,y,width, height, null);
-        g.drawImage(volumeImg[index], buttonX,y,VOLUME_WIDTH, height, null);
+        g.drawImage(volumeImg[index], buttonX- VOLUME_WIDTH/2,y,VOLUME_WIDTH, height, null);
+    }
+    public void changeX(int x){
+        if (x < minX){
+            buttonX = minX;
+        }
+        else if (x>maxX){
+            buttonX = maxX;
+        }
+        else {
+            buttonX = x;
+        }
+        bounds.x = buttonX-VOLUME_WIDTH/2;
+    }
+    public boolean isMousePress() {
+        return mousePress;
+    }
+
+    public void setMousePress(boolean mousePress) {
+        this.mousePress = mousePress;
+    }
+
+    public void setMouseOver(boolean mouseOver) {
+        this.mouseOver = mouseOver;
+    }
+
+    public boolean isMouseOver() {
+        return mouseOver;
+    }
+    public void resetBools(){
+        mousePress = false;
+        mouseOver = false;
     }
 }

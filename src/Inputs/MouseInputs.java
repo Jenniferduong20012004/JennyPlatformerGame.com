@@ -17,7 +17,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     public void mousePressed(MouseEvent e) {gamePanel.getGame().getState().Mouseclick(e);}
     @Override
     public void mouseReleased(MouseEvent e) {
-        gamePanel.getGame().getState().MouseRealease(e);
+        gamePanel.getGame().getState().MouseRelease(e);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        gamePanel.getGame().getState().mouseDrag(e);
     }
 
     @Override

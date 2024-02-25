@@ -3,6 +3,7 @@ package Gamestates;
 import Main.Game;
 import ui.SoundButton;
 import ui.UrmButton;
+import ui.VolumeButton;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -12,6 +13,7 @@ import java.awt.image.BufferedImage;
 
 import static utilz.Constant.UI.PauseButtons.SOUND_SIZE;
 import static utilz.Constant.UI.UmrButtons.UMR_SIZE;
+import static utilz.Constant.UI.VolumeButtons.*;
 
 public class Pausing extends States implements Gamestates{
     private BufferedImage background;
@@ -19,12 +21,21 @@ public class Pausing extends States implements Gamestates{
     private SoundButton musicButton, sfxButton;
     private UrmButton menuB, replayB, unpauseB;
     private Playing playing;
+    private VolumeButton volumeB;
     public Pausing (Game game, Playing playing){
         super(game);
         this.playing = playing;
         loadBackground();
         createSoundButtons();
         createUmrButtons();
+        createVolumeButtons();
+    }
+
+    private void createVolumeButtons() {
+        int vX = (int)(309*Game.SCALE);
+        int vY = (int)(278*Game.SCALE);
+        volumeB = new VolumeButton(vX, vY, SLIDER_WIDTH, VOLUME_HEIGHT);
+
     }
 
     private void createUmrButtons() {
@@ -65,6 +76,7 @@ public class Pausing extends States implements Gamestates{
         menuB.update();
         replayB.update();
         unpauseB.update();
+        volumeB.update();
     }
 
     @Override
@@ -75,6 +87,7 @@ public class Pausing extends States implements Gamestates{
         menuB.draw(g);
         replayB.draw(g);
         unpauseB.draw(g);
+        volumeB.draw(g);
     }
 
     @Override
@@ -94,10 +107,13 @@ public class Pausing extends States implements Gamestates{
         else if (isIn (e, unpauseB)) {
             unpauseB.setMousePress(true);
         }
+        else if (isIn (e, volumeB)) {
+            volumeB.setMousePress(true);
+        }
     }
 
     @Override
-    public void MouseRealease(MouseEvent e) {
+    public void MouseRelease(MouseEvent e) {
         if (isIn(e, musicButton)) {
             if (musicButton.isMousePress()) {
                 musicButton.setMuted(!musicButton.isMuted());
@@ -134,6 +150,7 @@ public class Pausing extends States implements Gamestates{
         menuB.resetBools();
         replayB.resetBools();
         unpauseB.resetBools();
+        volumeB.resetBools();
     }
 
     @Override
@@ -142,7 +159,8 @@ public class Pausing extends States implements Gamestates{
         sfxButton.setMouseOver(false);
         menuB.setMousePress(false);
         replayB.setMouseOver(false);
-        unpauseB.setMousePress(false);
+        unpauseB.setMouseOver(false);
+        volumeB.setMouseOver(false);
         if (isIn(e, musicButton)){
             musicButton.setMouseOver(true);
         }
@@ -157,6 +175,14 @@ public class Pausing extends States implements Gamestates{
         }
         else if (isIn(e,unpauseB)){
             unpauseB.setMouseOver(true);
+        }
+        else if (isIn(e,volumeB)){
+            volumeB.setMouseOver(true);
+        }
+    }
+    public void mouseDrag (MouseEvent e){
+        if (volumeB.isMousePress()){
+            volumeB.changeX(e.getX());
         }
     }
 
