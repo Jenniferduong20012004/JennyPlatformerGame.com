@@ -2,6 +2,7 @@ package entities;
 
 import utilz.Constant;
 
+import static utilz.Constant.EnemyConstants.*;
 import static utilz.helpMethods.GetEntityYPosUnderOfAboveFloor;
 
 public class BoxPig extends Enemy{
@@ -25,4 +26,10 @@ public class BoxPig extends Enemy{
         }
     }
 
+    @Override
+    protected void afterAttack() {
+        if (enemyState == B_THROWING_BOX){
+            enemyState = B_IDLE;
+        }
+    }
 }

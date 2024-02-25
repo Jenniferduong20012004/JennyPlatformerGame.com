@@ -55,7 +55,7 @@ public class Playing extends States implements Gamestates{
             levelManager.update();
             player.update();
             checkCloseToBorder();
-            enemyManager.update(LEVEL_ONE);
+            enemyManager.update(LEVEL_ONE, player);
         }
         else {
             pause.update();

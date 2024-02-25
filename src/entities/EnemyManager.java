@@ -76,9 +76,9 @@ public class EnemyManager {
         for (int i =0; i <Constant.EnemyConstants.getSpriteAmount(B_PIG,B_THROWING_BOX); i++){boxPigArr[B_THROWING_BOX][i] =b_throw.getSubimage(i*26,0,26,30);}
 
     }
-    public void update(int [][] lvlData){
+    public void update(int [][] lvlData, Player player){
         for (Pig pig: pigs)
-            pig.update(lvlData);
+            pig.update(lvlData, player);
         for (KingPig kings: kingpigs)
             kings.update(lvlData);
         for (BoxPig box: boxpigs)
@@ -92,7 +92,7 @@ public class EnemyManager {
 
     private void renderBoxPigs(Graphics g, int lvlOffset) {
         for (BoxPig pig : boxpigs) {
-            g.drawImage(boxPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-B_PIG_DRAWOFFSET_X-lvlOffset), (int) (pig.getHitbox().y-B_PIG_DRAWOFFSET_Y+10), B_PIG_WIDTH, B_PIG_HEIGHT, null);
+            g.drawImage(boxPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-B_PIG_DRAWOFFSET_X-lvlOffset+15), (int) (pig.getHitbox().y-B_PIG_DRAWOFFSET_Y+10), B_PIG_WIDTH, B_PIG_HEIGHT, null);
         }
     }
 

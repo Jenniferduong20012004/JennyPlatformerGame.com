@@ -7,6 +7,7 @@ import utilz.helpMethods;
 
 import java.awt.*;
 
+import static utilz.Constant.EnemyConstants.*;
 import static utilz.helpMethods.CanMoveHere;
 import static utilz.helpMethods.GetEntityYPosUnderOfAboveFloor;
 
@@ -34,4 +35,10 @@ public class KingPig extends Enemy{
 
     }
 
+    @Override
+    protected void afterAttack() {
+        if (enemyState == K_ATTACK){
+            enemyState = K_IDLE;
+        }
+    }
 }
