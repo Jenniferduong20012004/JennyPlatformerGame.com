@@ -8,7 +8,7 @@ import static utilz.helpMethods.*;
 import static utilz.Constant.Directions.*;
 
 public abstract class Enemy extends Entity{
-    protected int aniIndex, enemyState=5, enemyType;
+    protected int aniIndex, enemyState, enemyType;
     protected int aniTick, aniSpeed = 25;
     protected boolean firstUpdate = true;
     protected boolean inAir = false;
@@ -17,8 +17,9 @@ public abstract class Enemy extends Entity{
     protected float walkSpeed =(float )(0.5*Game.SCALE);
     protected int walkDir = LEFT;
 
-    public Enemy(float x, float y, int width, int height,int enemyType) {
+    public Enemy(float x, float y, int width, int height,int enemyType, int enemyState) {
         super(x, y, width, height);
+        this.enemyState = enemyState;
         this.enemyType=enemyType;
         initHitbox (x,y,width, height);
     }

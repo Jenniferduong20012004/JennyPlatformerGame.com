@@ -16,7 +16,7 @@ import static utilz.helpMethods.*;
 public class Pig extends Enemy{
     private BufferedImage[][] pigArr;
     public Pig(float x, float y) {
-        super(x, y, PIG_WIDTH, PIG_HEIGHT, PIG);
+        super(x, y, PIG_WIDTH, PIG_HEIGHT, PIG,  Constant.EnemyConstants.IDLE);
         initHitbox(x, y, (int)(20* Game.SCALE),(int)(15*Game.SCALE));
     }
     public void updateMove(int [][] lvlData){

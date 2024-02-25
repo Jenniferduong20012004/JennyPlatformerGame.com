@@ -16,7 +16,8 @@ public class EnemyManager {
     private Playing playing;
     private ArrayList<Pig> pigs = new ArrayList<>();
     private ArrayList<KingPig> kingpigs = new ArrayList<>();
-    private BufferedImage[][] pigArr, kingPigArr;
+    private BufferedImage[][] pigArr, kingPigArr, boxPigArr;
+    private ArrayList<BoxPig> boxpigs = new ArrayList<>();
     public EnemyManager(Playing playing){
         this.playing = playing;
         loadEnemyImg();
@@ -26,6 +27,7 @@ public class EnemyManager {
     private void addEnemies() {
         pigs = LoadSave.GetPigs(Enemy_levelOne);
         kingpigs = LoadSave.GetKingPig (Enemy_levelOne);
+        boxpigs = LoadSave.GetBoxPig (Enemy_levelOne);
     }
 
     private void loadEnemyImg() {
@@ -63,16 +65,35 @@ public class EnemyManager {
         for (int i =0; i <Constant.EnemyConstants.getSpriteAmount(KING_PIG,K_JUMP); i++){kingPigArr[K_JUMP][i] =k_jump.getSubimage(i*38,0,38,28);}
         BufferedImage k_run = LoadSave.GetSpriteAtlas(LoadSave.K_PIG_RUN);
         for (int i =0; i <Constant.EnemyConstants.getSpriteAmount(KING_PIG,K_RUN); i++){kingPigArr[K_RUN][i] =k_run.getSubimage(i*38,0,38,28);}
+        boxPigArr = new BufferedImage[4][9];
+        BufferedImage b_idle = LoadSave.GetSpriteAtlas(B_PIG_IDLE);
+        for (int i = 0; i < Constant.EnemyConstants.getSpriteAmount(B_PIG,B_IDLE); i++){boxPigArr[B_IDLE][i] = b_idle.getSubimage(i*26,0,26,30);}
+        BufferedImage b_pick = LoadSave.GetSpriteAtlas(B_PIG_PICKING_BOX);
+        for (int i =0; i <Constant.EnemyConstants.getSpriteAmount(B_PIG,B_PICKING_BOX); i++){boxPigArr[B_PICKING_BOX][i] = b_pick.getSubimage(i*26,0,26,30);}
+        BufferedImage b_run = LoadSave.GetSpriteAtlas(LoadSave.B_PIG_RUN);
+        for (int i =0; i <Constant.EnemyConstants.getSpriteAmount(B_PIG,B_RUN); i++){boxPigArr[B_RUN][i] =b_run.getSubimage(i*26,0,26,30);}
+        BufferedImage b_throw = LoadSave.GetSpriteAtlas(B_PIG_THROWING_BOX);
+        for (int i =0; i <Constant.EnemyConstants.getSpriteAmount(B_PIG,B_THROWING_BOX); i++){boxPigArr[B_THROWING_BOX][i] =b_throw.getSubimage(i*26,0,26,30);}
+
     }
     public void update(int [][] lvlData){
         for (Pig pig: pigs)
             pig.update(lvlData);
         for (KingPig kings: kingpigs)
             kings.update(lvlData);
+        for (BoxPig box: boxpigs)
+            box.update(lvlData);
     }
     public void render(Graphics g, int lvlOffset){
         renderPigs(g,lvlOffset);
         renderKingPigs(g,lvlOffset);
+        renderBoxPigs(g,lvlOffset);
+    }
+
+    private void renderBoxPigs(Graphics g, int lvlOffset) {
+        for (BoxPig pig : boxpigs) {
+            g.drawImage(boxPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-B_PIG_DRAWOFFSET_X-lvlOffset), (int) (pig.getHitbox().y-B_PIG_DRAWOFFSET_Y+10), B_PIG_WIDTH, B_PIG_HEIGHT, null);
+        }
     }
 
     private void renderKingPigs(Graphics g, int lvlOffset) {

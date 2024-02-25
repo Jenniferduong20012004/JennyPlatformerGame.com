@@ -1,6 +1,7 @@
 package utilz;
 
 import Main.Game;
+import entities.BoxPig;
 import entities.KingPig;
 import entities.Pig;
 
@@ -48,6 +49,11 @@ public class LoadSave {
     public static final String SOUND_BUTTON = "UI/sound_button.png";
     public static final String URM_BUTTON = "UI/urm_buttons.png";
     public static final String VOLUME_BUTTON = "UI/volume_buttons.png";
+    public static final String B_PIG_IDLE = "Enemy/Idle (26x30).png";
+    public static final String B_PIG_PICKING_BOX = "Enemy/Picking Box (26x30).png";
+    public static final String B_PIG_RUN = "Enemy/Run (26x30).png";
+    public static final String B_PIG_THROWING_BOX = "Enemy/Throwing Box (26x30).png";
+
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img=null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+fileName);
@@ -106,5 +112,15 @@ public class LoadSave {
         }
         return list;
     }
+    public static ArrayList<BoxPig> GetBoxPig(int[][] lvlChoose){
+        ArrayList<BoxPig> list = new ArrayList<>();
+        for (int i =0; i< lvlChoose.length;i++){
+            for (int j =0; j<lvlChoose[i].length;j++){
+                if (lvlChoose [i][j]==3){
+                    list.add (new BoxPig(j*Game.TILES_SIZE,i*Game.TILES_SIZE));
+                }
+            }
+        }
+        return list;
+    }
 }
-
