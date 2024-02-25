@@ -116,6 +116,7 @@ public class Pausing extends States implements Gamestates{
         else if (isIn (e, replayB)) {
             if (replayB.isMousePress()) {
                 game.setState(new Menu(game));
+                playing.unPauseGame();
             }
         }
         else if (isIn (e, replayB)) {
@@ -139,11 +140,23 @@ public class Pausing extends States implements Gamestates{
     public void MouseMove(MouseEvent e) {
         musicButton.setMouseOver(false);
         sfxButton.setMouseOver(false);
+        menuB.setMousePress(false);
+        replayB.setMouseOver(false);
+        unpauseB.setMousePress(false);
         if (isIn(e, musicButton)){
             musicButton.setMouseOver(true);
         }
         else if (isIn(e,sfxButton)){
             sfxButton.setMouseOver(true);
+        }
+        else if (isIn(e,menuB)){
+            menuB.setMouseOver(true);
+        }
+        else if (isIn(e,replayB)){
+            replayB.setMouseOver(true);
+        }
+        else if (isIn(e,unpauseB)){
+            unpauseB.setMouseOver(true);
         }
     }
 

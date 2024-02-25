@@ -16,7 +16,7 @@ public class Playing extends States implements Gamestates{
     private LevelManager levelManager;
     private Player player;
     private EnemyManager enemyManager;
-    private boolean paused=true;
+    private boolean paused=false;
     private Pausing pause;
 
     public Playing(Game game) {
@@ -44,10 +44,14 @@ public class Playing extends States implements Gamestates{
 
     @Override
     public void update() {
-        levelManager.update();
-        player.update();
-        enemyManager.update(LEVEL_ONE);
-        pause.update();
+        if (!paused) {
+            levelManager.update();
+            player.update();
+            enemyManager.update(LEVEL_ONE);
+        }
+        else {
+            pause.update();
+        }
     }
 
     @Override
@@ -55,7 +59,9 @@ public class Playing extends States implements Gamestates{
         levelManager.render(g);
         player.render(g);
         enemyManager.render(g);
-        pause.render(g);
+        if (paused) {
+            pause.render(g);
+        }
     }
 
     @Override
@@ -93,6 +99,9 @@ public class Playing extends States implements Gamestates{
                 break;
             case KeyEvent.VK_SPACE:
                 player.setAttack(true);
+                break;
+            case KeyEvent.VK_ESCAPE:
+                paused = !paused;
                 break;
         }
     }
