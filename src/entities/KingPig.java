@@ -17,21 +17,29 @@ public class KingPig extends Enemy{
         super(x, y, EnemyConstants.K_PIG_WIDTH, EnemyConstants.K_PIG_HEIGHT, EnemyConstants.KING_PIG, Constant.EnemyConstants.K_IDLE);
         initHitbox(x,y,(int)(20* Game.SCALE), (int)(19*Game.SCALE));
     }
-    public void updateMove(int [][] lvlData){
+    public void updateMove(int [][] lvlData, Player player){
         if (firstUpdate){
             firstUpdateCheck(lvlData);
         }
         if (inAir) {
             updateInAir(lvlData);
-            }
-            else{
-                inAir = false;
-                hitbox.y = GetEntityYPosUnderOfAboveFloor(hitbox, fallSpeed);
+        }
+        else{
+            switch (enemyState){
+                case K_IDLE :
+                    if (canSeePlayer(lvlData,player)){
+                        turnTowardPlayer(player);
+                        move(lvlData);
+                        if (isPlayerCloseForAttack(player)){
+                            newState(ATTACK);
+                        }
+                    }
+                }
             }
         }
-    public void update(int [][] lvlData){
+    public void update(int [][] lvlData, Player player){
         updateAnimationTick();
-        updateMove(lvlData);
+        updateMove(lvlData, player);
 
     }
 

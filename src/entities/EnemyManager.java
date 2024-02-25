@@ -80,7 +80,7 @@ public class EnemyManager {
         for (Pig pig: pigs)
             pig.update(lvlData, player);
         for (KingPig kings: kingpigs)
-            kings.update(lvlData);
+            kings.update(lvlData, player);
         for (BoxPig box: boxpigs)
             box.update(lvlData);
     }
