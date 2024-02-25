@@ -4,6 +4,7 @@ import Main.Game;
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
+import utilz.LoadSave;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -18,6 +19,12 @@ public class Playing extends States implements Gamestates{
     private EnemyManager enemyManager;
     private boolean paused=false;
     private Pausing pause;
+    private int xLvlOffset;
+    private int leftBorder = (int)(0.2*Game.GAME_WIDTH);
+    private int rightBorder = (int)(0.8*Game.GAME_WIDTH);
+    private int lvlTileWide = LoadSave.GetLevelData(LEVEL_ONE)[0].length;
+    private int maxTileOffset = lvlTileWide- Game.TILES_IN_WIDTH;
+    private int maxLvlOffsetX = maxTileOffset *Game.TILES_SIZE;
 
     public Playing(Game game) {
         super(game);
@@ -47,6 +54,7 @@ public class Playing extends States implements Gamestates{
         if (!paused) {
             levelManager.update();
             player.update();
+            checkCloseToBorder();
             enemyManager.update(LEVEL_ONE);
         }
         else {
@@ -54,12 +62,31 @@ public class Playing extends States implements Gamestates{
         }
     }
 
+    private void checkCloseToBorder() {
+        int playerX = (int) player.getHitbox().x;
+        int diff = playerX -xLvlOffset;
+        if (diff>rightBorder){
+            xLvlOffset += diff - rightBorder;
+        }
+        else if (diff <leftBorder){
+            xLvlOffset += diff-leftBorder;
+        }
+        if (xLvlOffset>maxLvlOffsetX){
+            xLvlOffset = maxLvlOffsetX;
+        }
+        else if (xLvlOffset < 0){
+            xLvlOffset =0;
+        }
+    }
+
     @Override
     public void render(Graphics g) {
-        levelManager.render(g);
-        player.render(g);
+        levelManager.render(g, xLvlOffset);
+        player.render(g,xLvlOffset);
         enemyManager.render(g);
         if (paused) {
+            g.setColor (new Color (0,0,0,150));
+            g.fillRect (0,0,Game.GAME_WIDTH, Game.GAME_HEIGHT);
             pause.render(g);
         }
     }
