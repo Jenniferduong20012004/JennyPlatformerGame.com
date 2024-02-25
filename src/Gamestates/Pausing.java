@@ -3,7 +3,6 @@ package Gamestates;
 import Main.Game;
 import ui.SoundButton;
 import ui.UrmButton;
-import utilz.Constant;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -19,8 +18,10 @@ public class Pausing extends States implements Gamestates{
     private int bgX, bgY, bgW, bgH;
     private SoundButton musicButton, sfxButton;
     private UrmButton menuB, replayB, unpauseB;
-    public Pausing (Game game){
+    private Playing playing;
+    public Pausing (Game game, Playing playing){
         super(game);
+        this.playing = playing;
         loadBackground();
         createSoundButtons();
         createUmrButtons();
@@ -31,9 +32,9 @@ public class Pausing extends States implements Gamestates{
         int replayX = (int)(387*Game.SCALE);
         int unpauseX = (int)(462*Game.SCALE);
         int bY = (int)(325*Game.SCALE);
-        menuB = new UrmButton(menuX,bY, UMR_SIZE, UMR_SIZE, 0 );
+        menuB = new UrmButton(menuX,bY, UMR_SIZE, UMR_SIZE, 2);
         replayB= new UrmButton(replayX,bY, UMR_SIZE, UMR_SIZE, 1 );
-        unpauseB= new UrmButton(unpauseX,bY, UMR_SIZE, UMR_SIZE, 2 );
+        unpauseB= new UrmButton(unpauseX,bY, UMR_SIZE, UMR_SIZE, 0);
     }
 
     private void createSoundButtons() {
@@ -84,10 +85,10 @@ public class Pausing extends States implements Gamestates{
         else if (isIn (e, sfxButton)) {
             sfxButton.setMousePress(true);
         }
-        else if (isIn (e, menuB)){
+        else if (isIn (e, menuB)) {
             menuB.setMousePress(true);
         }
-        else if (isIn(e, replayB)){
+        else if (isIn (e, replayB)) {
             replayB.setMousePress(true);
         }
         else if (isIn (e, unpauseB)) {
@@ -107,8 +108,31 @@ public class Pausing extends States implements Gamestates{
                 sfxButton.setMuted(!sfxButton.isMuted());
             }
         }
+        else if (isIn (e, menuB)) {
+            if (menuB.isMousePress()) {
+                game.setState(new Menu(game));
+            }
+        }
+        else if (isIn (e, replayB)) {
+            if (replayB.isMousePress()) {
+                game.setState(new Menu(game));
+            }
+        }
+        else if (isIn (e, replayB)) {
+            if (replayB.isMousePress()) {
+
+            }
+        }
+        else if (isIn (e, unpauseB)) {
+            if (unpauseB.isMousePress()) {
+                playing.unPauseGame();
+            }
+        }
         musicButton.resetBools();
         sfxButton.resetBools();
+        menuB.resetBools();
+        replayB.resetBools();
+        unpauseB.resetBools();
     }
 
     @Override

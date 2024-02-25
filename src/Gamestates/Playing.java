@@ -27,7 +27,7 @@ public class Playing extends States implements Gamestates{
         levelManager = new LevelManager(game);
         player = new Player(200,200,(int) (78 * Game.SCALE), (int) (58 * Game.SCALE));
         enemyManager = new EnemyManager(this);
-        pause = new Pausing(game);
+        pause = new Pausing(game, this);
     }
     public Player getPlayer(){
         return player;
@@ -113,5 +113,8 @@ public class Playing extends States implements Gamestates{
                 player.setAttack(false);
                 break;
         }
+    }
+    public void unPauseGame(){
+        paused = false;
     }
 }
