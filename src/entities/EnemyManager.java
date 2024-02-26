@@ -92,19 +92,18 @@ public class EnemyManager {
 
     private void renderBoxPigs(Graphics g, int lvlOffset) {
         for (BoxPig pig : boxpigs) {
-            g.drawImage(boxPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-B_PIG_DRAWOFFSET_X-lvlOffset), (int) (pig.getHitbox().y-B_PIG_DRAWOFFSET_Y+12), B_PIG_WIDTH, B_PIG_HEIGHT, null);
+            g.drawImage(boxPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-B_PIG_DRAWOFFSET_X-lvlOffset+pig.flipX()), (int) (pig.getHitbox().y-B_PIG_DRAWOFFSET_Y+12), B_PIG_WIDTH*pig.flipW(), B_PIG_HEIGHT, null);
         }
     }
-
     private void renderKingPigs(Graphics g, int lvlOffset) {
         for (KingPig pig : kingpigs) {
-            g.drawImage(kingPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-K_PIG_DRAWOFFSET_X-lvlOffset), (int) (pig.getHitbox().y-K_PIG_DRAWOFFSET_Y), K_PIG_WIDTH, K_PIG_HEIGHT, null);
+            g.drawImage(kingPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-K_PIG_DRAWOFFSET_X-lvlOffset+pig.flipX()), (int) (pig.getHitbox().y-K_PIG_DRAWOFFSET_Y), K_PIG_WIDTH*pig.flipW(), K_PIG_HEIGHT, null);
         }
     }
 
     private void renderPigs(Graphics g, int lvlOffset) {
         for (Pig pig: pigs){
-            g.drawImage(pigArr[pig.getEnemyState()][pig.getAniIndex()], (int)(pig.getHitbox().x-PIG_DRAWOFFSET_X-lvlOffset), (int)(pig.getHitbox().y-PIG_DRAWOFFSET_Y-5),PIG_WIDTH,PIG_HEIGHT,null);
+            g.drawImage(pigArr[pig.getEnemyState()][pig.getAniIndex()], (int)(pig.getHitbox().x-PIG_DRAWOFFSET_X-lvlOffset+pig.flipX()), (int)(pig.getHitbox().y-PIG_DRAWOFFSET_Y-5),PIG_WIDTH*pig.flipW(),PIG_HEIGHT,null);
         }
     }
 }

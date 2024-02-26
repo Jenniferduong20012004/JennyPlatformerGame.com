@@ -2,6 +2,9 @@ package entities;
 
 import Main.Game;
 import utilz.Constant;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import static utilz.Constant.EnemyConstants.*;
 public class Pig extends Enemy{
@@ -9,6 +12,12 @@ public class Pig extends Enemy{
     public Pig(float x, float y) {
         super(x, y, PIG_WIDTH, PIG_HEIGHT, PIG,  Constant.EnemyConstants.IDLE);
         initHitbox(x, y, (int)(20* Game.SCALE),(int)(15*Game.SCALE));
+        initAttackBox();
+    }
+    @Override
+    public void initAttackBox(){
+        attackbox = new Rectangle2D.Float(x+flipX(),y,(int)(52*Game.SCALE*flipW()), (int)(19*Game.SCALE));
+        attackBoxOffsetX = (int)(Game.SCALE*30); //30 trái, 22 giữa
     }
     public void updateMove(int [][] lvlData, Player player){
         if (firstUpdate){
@@ -38,7 +47,7 @@ public class Pig extends Enemy{
     public void update(int [][] lvlData, Player player){
         updateMove(lvlData, player);
         updateAnimationTick();
-
+        updateAttackBox();
     }
 
     @Override
@@ -47,4 +56,5 @@ public class Pig extends Enemy{
             enemyState = IDLE;
         }
     }
+
 }

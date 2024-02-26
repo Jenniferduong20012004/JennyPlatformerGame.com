@@ -3,6 +3,7 @@ import Main.Game;
 import utilz.Constant.EnemyConstants;
 import utilz.helpMethods;
 
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 import static utilz.Constant.EnemyConstants.*;
@@ -20,6 +21,8 @@ public abstract class Enemy extends Entity{
     protected int walkDir = LEFT;
     protected int tileY;
     protected float attackDistance = Game.TILES_SIZE *1;
+    protected Rectangle2D.Float attackbox;
+    protected int attackBoxOffsetX;
 
     public Enemy(float x, float y, int width, int height,int enemyType, int enemyState) {
         super(x, y, width, height);
@@ -39,6 +42,7 @@ public abstract class Enemy extends Entity{
         }
     }
     protected abstract void afterAttack();
+    public abstract void initAttackBox();
     protected void changeWalkDir() {
         if (walkDir == LEFT){
             walkDir = RIGHT;
@@ -117,5 +121,29 @@ public abstract class Enemy extends Entity{
     protected boolean isPlayerCloseForAttack(Player player){
         int absValue =(int) Math.abs (player.hitbox.x-hitbox.x);
         return absValue <= attackDistance;
+    }
+    protected int flipX(){
+        if (walkDir == RIGHT){
+            return width;
+        }
+        else {
+            return 0;
+        }
+    }
+    protected int flipW(){
+        if(walkDir ==RIGHT){
+            return -1;
+        }
+        return 1;
+    }
+
+    protected void updateAttackBox(){
+        if (walkDir == RIGHT) {
+            attackbox.x = hitbox.x + attackBoxOffsetX-37*Game.SCALE;
+        }
+        else {
+            attackbox.x = hitbox.x - attackBoxOffsetX;
+        }
+        attackbox.y = hitbox.y;
     }
 }

@@ -16,6 +16,7 @@ public class KingPig extends Enemy{
     public KingPig(float x, float y) {
         super(x, y, EnemyConstants.K_PIG_WIDTH, EnemyConstants.K_PIG_HEIGHT, EnemyConstants.KING_PIG, Constant.EnemyConstants.K_IDLE);
         initHitbox(x,y,(int)(20* Game.SCALE), (int)(19*Game.SCALE));
+        initAttackBox();
     }
     public void updateMove(int [][] lvlData, Player player){
         if (firstUpdate){
@@ -48,5 +49,10 @@ public class KingPig extends Enemy{
         if (enemyState == K_ATTACK){
             enemyState = K_IDLE;
         }
+    }
+
+    @Override
+    public void initAttackBox() {
+
     }
 }

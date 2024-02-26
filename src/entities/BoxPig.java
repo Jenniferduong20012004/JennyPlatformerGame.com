@@ -33,4 +33,9 @@ public class BoxPig extends Enemy{
             enemyState = B_IDLE;
         }
     }
+
+    @Override
+    public void initAttackBox() {
+
+    }
 }

@@ -4,6 +4,7 @@ import Main.Game;
 import utilz.*;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import static utilz.Constant.PlayerConstants.*;
@@ -53,14 +54,24 @@ public class Player extends Entity{
     private int healthBarYStart = (int)(14*Game.SCALE);
     private int currentHealth = maxHealth;
     private int healthWidth = healthBarWidth;
+    private Rectangle2D.Float attackbox;
+    private int flipX =0;
+    private int flipW =1;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimation();
         initHitbox(x,y,(int) (18*Game.SCALE), (int)(28*Game.SCALE));
+        intAttackBox();
     }
+
+    private void intAttackBox() {
+        attackbox = new Rectangle2D.Float(x,y,(int)(20*Game.SCALE), (int)(20*Game.SCALE));
+    }
+
     public void update (){
         updateHealthBar();
+        updateAttackBox();
         //observer
         loadlvlData(LevelOne.LEVEL_ONE);
         updatePos();
@@ -69,12 +80,22 @@ public class Player extends Entity{
         setAnimation();
     }
 
+    private void updateAttackBox() {
+        if (right){
+            attackbox.x = hitbox.x+ hitbox.width+(int)(Game.SCALE*10);
+        }
+        else if (left){
+            attackbox.x = hitbox.x- hitbox.width-(int)(Game.SCALE*10);
+        }
+        attackbox.y = hitbox.y+(Game.SCALE*10);
+    }
+
     private void updateHealthBar() {
         healthWidth = (int)((currentHealth/(float)maxHealth)*healthBarWidth);
     }
 
     public void render(Graphics g, int lvlOffset){
-        g.drawImage(playerAnimation[playerAction][aniIndex],(int)(hitbox.x-xDrawOffset)-lvlOffset,(int)(hitbox.y-yDrawOffset),width,height,null);
+        g.drawImage(playerAnimation[playerAction][aniIndex],(int)(hitbox.x-xDrawOffset)-lvlOffset+flipX,(int)(hitbox.y-yDrawOffset),width*flipW,height,null);
         drawUI(g);
     }
 
@@ -92,6 +113,15 @@ public class Player extends Entity{
             if(diamondTick>=8){
                 diamondTick =0;
             }
+        }
+    }
+    public void changeHealth(int value){
+        currentHealth +=value;
+        if (currentHealth <=0){
+            currentHealth =0;
+        }
+        else if (currentHealth>=maxHealth){
+            currentHealth =maxHealth;
         }
     }
     private void loadAnimation() {
@@ -175,9 +205,13 @@ public class Player extends Entity{
         float xSpeed =0;
         if (left &&!right){
             xSpeed =- playerSpeed;
+            flipX = width;
+            flipW = -1;
         }
         else if (!left && right){
             xSpeed = playerSpeed;
+            flipX =0;
+            flipW =1;
         }
         if (!inAir){
             if (!helpMethods.IsEntityOnFloor(hitbox,lvlData)){
