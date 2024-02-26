@@ -92,7 +92,7 @@ public class EnemyManager {
 
     private void renderBoxPigs(Graphics g, int lvlOffset) {
         for (BoxPig pig : boxpigs) {
-            g.drawImage(boxPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-B_PIG_DRAWOFFSET_X-lvlOffset+15), (int) (pig.getHitbox().y-B_PIG_DRAWOFFSET_Y+10), B_PIG_WIDTH, B_PIG_HEIGHT, null);
+            g.drawImage(boxPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-B_PIG_DRAWOFFSET_X-lvlOffset), (int) (pig.getHitbox().y-B_PIG_DRAWOFFSET_Y+12), B_PIG_WIDTH, B_PIG_HEIGHT, null);
         }
     }
 

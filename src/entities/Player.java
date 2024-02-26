@@ -27,8 +27,32 @@ public class Player extends Entity{
     private float fallSpeedAfterCollision = 0.5f *Game.SCALE;
     private boolean inAir = false;
     private boolean ground = false;
-
-
+    //Health UI
+    private BufferedImage healthBarImg;
+    private int statusBarWidth = (int) (192 * Game.SCALE);
+    private int statusBarHeight = (int) (58 * Game.SCALE);
+    private int statusBarX = (int) (10 * Game.SCALE);
+    private int statusBarY = (int) (10 * Game.SCALE);
+    private int healthBarWidth = (int)(150*Game.SCALE);
+    private int healthBarHeight = (int)(4*Game.SCALE);
+    private int healthBarX = (int) (34*Game.SCALE);
+    private int healthBarY = (int) (14*Game.SCALE);
+    private BufferedImage[] diamondImg;
+    private BufferedImage[] numberOfDiamondImg;
+    private int diamondTick =0, diamondtime =0;
+    private int diamondBarWidth = (int)(18*Game.SCALE);
+    private int diamondBarHeight = (int)(14*Game.SCALE);
+    private int diamondBarX = (int) (44*Game.SCALE);
+    private int diamondBarY = (int) (74*Game.SCALE);
+    private int numberWidth = (int)(6*Game.SCALE);
+    private int numberHeight = (int)(8*Game.SCALE);
+    private int numberX = (int) (64*Game.SCALE);
+    private int numberY = (int) (76*Game.SCALE);
+    private int maxHealth = 100;
+    private int healthBarXStart = (int)(34*Game.SCALE);
+    private int healthBarYStart = (int)(14*Game.SCALE);
+    private int currentHealth = maxHealth;
+    private int healthWidth = healthBarWidth;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -36,14 +60,39 @@ public class Player extends Entity{
         initHitbox(x,y,(int) (18*Game.SCALE), (int)(28*Game.SCALE));
     }
     public void update (){
+        updateHealthBar();
         //observer
         loadlvlData(LevelOne.LEVEL_ONE);
         updatePos();
         updateAnimationTick();
+        updateDiamondTick();
         setAnimation();
     }
+
+    private void updateHealthBar() {
+        healthWidth = (int)((currentHealth/(float)maxHealth)*healthBarWidth);
+    }
+
     public void render(Graphics g, int lvlOffset){
         g.drawImage(playerAnimation[playerAction][aniIndex],(int)(hitbox.x-xDrawOffset)-lvlOffset,(int)(hitbox.y-yDrawOffset),width,height,null);
+        drawUI(g);
+    }
+
+    private void drawUI(Graphics g) {
+        g.drawImage (healthBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
+        g.setColor(Color.RED);
+        g.fillRect(healthBarXStart+statusBarX, healthBarYStart+statusBarY,healthWidth ,healthBarHeight);
+        g.drawImage(diamondImg[diamondTick], diamondBarX,diamondBarY,diamondBarWidth*2,diamondBarHeight*2,null);
+        g.drawImage(numberOfDiamondImg[9], numberX+20,numberY+3,numberWidth*2,numberHeight*2,null);
+    }
+    private void updateDiamondTick(){
+        diamondtime++;
+        if (diamondtime >=30){
+            diamondTick ++;
+            if(diamondTick>=8){
+                diamondTick =0;
+            }
+        }
     }
     private void loadAnimation() {
         playerAnimation = new BufferedImage[10][11];
@@ -67,6 +116,13 @@ public class Player extends Entity{
         for (int i =0; i <Constant.PlayerConstants.getSpriteAmount(JUMP); i++){playerAnimation[JUMP][i] =jump.getSubimage(i*78,0,78,58);}
         BufferedImage run = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_RUN);
         for (int i =0; i <Constant.PlayerConstants.getSpriteAmount(RUNNING); i++){playerAnimation[RUNNING][i] =run.getSubimage(i*78,0,78,58);}
+        healthBarImg= LoadSave.GetSpriteAtlas(LoadSave.HEALTH_POWER_BAR);
+        BufferedImage dia = LoadSave.GetSpriteAtlas(LoadSave.SMALL_DIAMOND);
+        diamondImg = new BufferedImage[9];
+        for (int i =0; i < 8; i++){diamondImg[i]= dia.getSubimage(i*18,0,18,14);}
+        BufferedImage num = LoadSave.GetSpriteAtlas(LoadSave.NUMBERS);
+        numberOfDiamondImg = new BufferedImage[10];
+        for (int i =0; i < 10; i++){numberOfDiamondImg[i]= num.getSubimage(i*6,0,6,8);}
     }
     public void loadlvlData(int[][] lvlData){
         this.lvlData = lvlData;

@@ -21,8 +21,9 @@ public class BoxPig extends Enemy{
             updateInAir(lvlData);
         }
         else{
-            inAir = false;
-            hitbox.y = GetEntityYPosUnderOfAboveFloor(hitbox, fallSpeed);
+            switch (enemyState){
+                //case
+            }
         }
     }
 

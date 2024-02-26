@@ -53,7 +53,16 @@ public class LoadSave {
     public static final String B_PIG_PICKING_BOX = "Enemy/Picking Box (26x30).png";
     public static final String B_PIG_RUN = "Enemy/Run (26x30).png";
     public static final String B_PIG_THROWING_BOX = "Enemy/Throwing Box (26x30).png";
-
+    public static final String BIG_HEART_HIT = "UI/Big Heart Hit (18x14).png";
+    public static final String BIG_HEART_IDLE = "UI/Big Heart Idle (18x14).png";
+    public static final String LIVE_BAR = "UI/Live Bar.png";
+    public static final String HEALTH_POWER_BAR = "UI/health_power_bar.png";
+    public static final String SMALL_HEART_HIT = "UI/Small Heart Hit (18x14).png";
+    public static final String SMALL_HEART_IDLE = "UI/Small Heart Idle (18x14).png";
+    public static final String BIG_DIAMOND_HIT = "UI/Big Diamond Hit (18x14).png";
+    public static final String BIG_DIAMOND_IDLE = "UI/Big Diamond Idle (18x14).png";
+    public static final String NUMBERS = "UI/Numbers (6x8).png";
+    public static final String SMALL_DIAMOND = "UI/Small Diamond (18x14).png";
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img=null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+fileName);
