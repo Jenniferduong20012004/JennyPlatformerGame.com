@@ -41,4 +41,14 @@ public class BoxPig extends Enemy{
 
     }
 
+    @Override
+    public void resetEnemy() {
+        hitbox.x = x;
+        hitbox.y = y;
+        firstUpdate = true;
+        currentHealth = maxHealth;
+        newState(IDLE);
+        fallSpeed =0;
+    }
+
 }

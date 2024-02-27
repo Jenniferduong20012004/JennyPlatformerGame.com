@@ -110,9 +110,9 @@ public class Constant {
         public static int GetMaxHealth(int enemyType){
             switch ( enemyType){
                 case PIG, B_PIG:
-                    return 10;
+                    return 20;
                 case KING_PIG:
-                    return 30;
+                    return 40;
                 default:
                     return 1;
             }

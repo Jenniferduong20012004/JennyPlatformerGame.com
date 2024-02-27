@@ -133,4 +133,16 @@ public class EnemyManager {
                 g.drawImage(pigArr[pig.getEnemyState()][pig.getAniIndex()], (int)(pig.getHitbox().x-PIG_DRAWOFFSET_X-lvlOffset+pig.flipX()), (int)(pig.getHitbox().y-PIG_DRAWOFFSET_Y-5),PIG_WIDTH*pig.flipW(),PIG_HEIGHT,null);
         }
     }
+
+    public void resetAllEnemy() {
+        for (Pig pig: pigs){
+            pig.resetEnemy();
+        }
+        for (KingPig pig: kingpigs){
+            pig.resetEnemy();
+        }
+        for (BoxPig pig: boxpigs){
+            pig.resetEnemy();
+        }
+    }
 }

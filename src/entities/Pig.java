@@ -20,6 +20,17 @@ public class Pig extends Enemy{
         attackbox = new Rectangle2D.Float(x+flipX(),y,(int)(52*Game.SCALE*flipW()), (int)(19*Game.SCALE));
         attackBoxOffsetX = (int)(Game.SCALE*30); //30 trái, 22 giữa
     }
+
+    @Override
+    public void resetEnemy() {
+        hitbox.x = x;
+        hitbox.y = y;
+        firstUpdate = true;
+        currentHealth = maxHealth;
+        newState(IDLE);
+        fallSpeed =0;
+    }
+
     public void updateMove(int [][] lvlData, Player player){
         if (firstUpdate){
             firstUpdateCheck(lvlData);

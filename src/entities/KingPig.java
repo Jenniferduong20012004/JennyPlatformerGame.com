@@ -72,4 +72,14 @@ public class KingPig extends Enemy{
         attackbox = new Rectangle2D.Float(x+flipX(),y,(int)(52*Game.SCALE*flipW()), (int)(19*Game.SCALE));
         attackBoxOffsetX = (int)(Game.SCALE*30);
     }
+
+    @Override
+    public void resetEnemy() {
+        hitbox.x = x;
+        hitbox.y = y;
+        firstUpdate = true;
+        currentHealth = maxHealth;
+        newState(IDLE);
+        fallSpeed =0;
+    }
 }

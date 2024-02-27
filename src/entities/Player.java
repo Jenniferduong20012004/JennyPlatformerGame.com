@@ -75,6 +75,10 @@ public class Player extends Entity{
 
     public void update (){
         updateHealthBar();
+        if (currentHealth <=0&&aniIndex == getSpriteAmount(DEAD)-1){
+            playing.setGameOver(true);
+            return;
+        }
         updateAttackBox();
         //observer
         loadlvlData(LevelOne.LEVEL_ONE);
@@ -100,7 +104,7 @@ public class Player extends Entity{
             attackbox.x = hitbox.x+ hitbox.width+(int)(Game.SCALE*10);
         }
         else if (left){
-            attackbox.x = hitbox.x- hitbox.width-(int)(Game.SCALE*10);
+            attackbox.x = hitbox.x- hitbox.width/2-(int)(Game.SCALE*10);
         }
         attackbox.y = hitbox.y+(Game.SCALE*10);
     }
@@ -110,6 +114,7 @@ public class Player extends Entity{
     }
 
     public void render(Graphics g, int lvlOffset){
+        drawAttackBox(g,lvlOffset);
         g.drawImage(playerAnimation[playerAction][aniIndex],(int)(hitbox.x-xDrawOffset)-lvlOffset+flipX,(int)(hitbox.y-yDrawOffset),width*flipW,height,null);
         drawUI(g);
     }
@@ -189,6 +194,7 @@ public class Player extends Entity{
         }
     }
     private void setAnimation() {
+        int startAni = playerAction;
         if (moving){
             playerAction = RUNNING;
         }
@@ -208,9 +214,25 @@ public class Player extends Entity{
         }
         if (attack){
             playerAction = ATTACK;
-            //if (startAn)
+            if (startAni!= ATTACK){
+                aniIndex =1;
+                aniTick =0;
+            }
         }
+        if (currentHealth <=0){
+            playerAction = DEAD;
+        }
+        if (startAni != playerAction){
+            resetAniTick();
+        }
+
     }
+
+    private void resetAniTick() {
+        aniTick =0;
+        aniIndex=0;
+    }
+
     private void updatePos() {
         moving = false;
         if (jump){
@@ -293,5 +315,24 @@ public class Player extends Entity{
     public void resetDirBoolean() {
         right = false;
         left = false;
+    }
+    private void drawAttackBox(Graphics g, int lvlOffsetX) {
+        g.setColor(Color.red);
+        g.drawRect((int) attackbox.x - lvlOffsetX, (int) attackbox.y, (int) attackbox.width, (int) attackbox.height);
+
+    }
+
+    public void resetAll() {
+        resetDirBoolean();
+        inAir = false;
+        attack = false;
+        moving = false;
+        playerAction = IDLE;
+        currentHealth = maxHealth;
+        hitbox.x = x;
+        hitbox.y = y;
+        if (!helpMethods.IsEntityOnFloor(hitbox, lvlData)) {
+            inAir = true;
+        }
     }
 }
