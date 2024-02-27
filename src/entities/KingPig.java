@@ -6,6 +6,7 @@ import utilz.LoadSave;
 import utilz.helpMethods;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 import static utilz.Constant.EnemyConstants.*;
 import static utilz.helpMethods.CanMoveHere;
@@ -32,27 +33,43 @@ public class KingPig extends Enemy{
                         turnTowardPlayer(player);
                         move(lvlData);
                         if (isPlayerCloseForAttack(player)){
-                            newState(ATTACK);
+                            newState(K_ATTACK);
                         }
                     }
+                    break;
+                case ATTACK:
+                    if (aniIndex==0){
+                        attackCheck = false;
+                    }
+                    if (aniIndex ==2&&!attackCheck){
+                        checkEnemyAttack(attackbox,player);
+                    }
+                    break;
                 }
             }
         }
     public void update(int [][] lvlData, Player player){
-        updateAnimationTick();
         updateMove(lvlData, player);
-
+        updateAnimationTick();
+        updateAttackBox();
     }
 
     @Override
-    protected void afterAttack() {
-        if (enemyState == K_ATTACK){
-            enemyState = K_IDLE;
+    protected void checkState() {
+        switch (enemyState) {
+            case K_ATTACK, K_HIT:
+                enemyState = K_IDLE;
+                break;
+            case K_DEAD:
+                active = false;
+                break;
         }
     }
 
+
     @Override
     public void initAttackBox() {
-
+        attackbox = new Rectangle2D.Float(x+flipX(),y,(int)(52*Game.SCALE*flipW()), (int)(19*Game.SCALE));
+        attackBoxOffsetX = (int)(Game.SCALE*30);
     }
 }

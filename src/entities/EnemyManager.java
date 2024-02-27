@@ -5,6 +5,7 @@ import utilz.Constant;
 import utilz.LoadSave;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -23,7 +24,6 @@ public class EnemyManager {
         loadEnemyImg();
         addEnemies();
     }
-
     private void addEnemies() {
         pigs = LoadSave.GetPigs(Enemy_levelOne);
         kingpigs = LoadSave.GetKingPig (Enemy_levelOne);
@@ -78,11 +78,14 @@ public class EnemyManager {
     }
     public void update(int [][] lvlData, Player player){
         for (Pig pig: pigs)
-            pig.update(lvlData, player);
+            if (pig.isActive())
+                pig.update(lvlData, player);
         for (KingPig kings: kingpigs)
-            kings.update(lvlData, player);
+            if (kings.isActive())
+                kings.update(lvlData, player);
         for (BoxPig box: boxpigs)
-            box.update(lvlData);
+            if (box.isActive())
+                box.update(lvlData);
     }
     public void render(Graphics g, int lvlOffset){
         renderPigs(g,lvlOffset);
@@ -92,18 +95,42 @@ public class EnemyManager {
 
     private void renderBoxPigs(Graphics g, int lvlOffset) {
         for (BoxPig pig : boxpigs) {
-            g.drawImage(boxPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-B_PIG_DRAWOFFSET_X-lvlOffset+pig.flipX()), (int) (pig.getHitbox().y-B_PIG_DRAWOFFSET_Y+12), B_PIG_WIDTH*pig.flipW(), B_PIG_HEIGHT, null);
+            if (pig.isActive())
+                g.drawImage(boxPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-B_PIG_DRAWOFFSET_X-lvlOffset+pig.flipX()), (int) (pig.getHitbox().y-B_PIG_DRAWOFFSET_Y+12), B_PIG_WIDTH*pig.flipW(), B_PIG_HEIGHT, null);
         }
     }
     private void renderKingPigs(Graphics g, int lvlOffset) {
         for (KingPig pig : kingpigs) {
-            g.drawImage(kingPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-K_PIG_DRAWOFFSET_X-lvlOffset+pig.flipX()), (int) (pig.getHitbox().y-K_PIG_DRAWOFFSET_Y), K_PIG_WIDTH*pig.flipW(), K_PIG_HEIGHT, null);
+            if (pig.isActive())
+                g.drawImage(kingPigArr[pig.getEnemyState()][pig.getAniIndex()], (int)( pig.getHitbox().x-K_PIG_DRAWOFFSET_X-lvlOffset+pig.flipX()), (int) (pig.getHitbox().y-K_PIG_DRAWOFFSET_Y), K_PIG_WIDTH*pig.flipW(), K_PIG_HEIGHT, null);
         }
     }
+    public void checkEnemyIsHit(Rectangle2D.Float attackbox){
+        for (Pig pig:pigs){
+            if (attackbox.intersects(pig.getHitbox())){
+                pig.hurt(10, Constant.EnemyConstants.DEAD,Constant.EnemyConstants.HIT);
+                return;
+            }
+        }
+        for ( KingPig pig: kingpigs){
+            if (attackbox.intersects(pig.getHitbox())){
+                pig.hurt(10, Constant.EnemyConstants.K_DEAD,Constant.EnemyConstants.K_HIT);
+                return;
+            }
+        }
+        for ( BoxPig pig: boxpigs){
+            if (attackbox.intersects(pig.getHitbox())){
+                pig.hurt(10, B_THROWING_BOX,B_THROWING_BOX);
+                return;
+            }
+        }
+        }
+
 
     private void renderPigs(Graphics g, int lvlOffset) {
         for (Pig pig: pigs){
-            g.drawImage(pigArr[pig.getEnemyState()][pig.getAniIndex()], (int)(pig.getHitbox().x-PIG_DRAWOFFSET_X-lvlOffset+pig.flipX()), (int)(pig.getHitbox().y-PIG_DRAWOFFSET_Y-5),PIG_WIDTH*pig.flipW(),PIG_HEIGHT,null);
+            if (pig.isActive())
+                g.drawImage(pigArr[pig.getEnemyState()][pig.getAniIndex()], (int)(pig.getHitbox().x-PIG_DRAWOFFSET_X-lvlOffset+pig.flipX()), (int)(pig.getHitbox().y-PIG_DRAWOFFSET_Y-5),PIG_WIDTH*pig.flipW(),PIG_HEIGHT,null);
         }
     }
 }

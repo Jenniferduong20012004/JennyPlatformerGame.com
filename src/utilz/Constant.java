@@ -107,6 +107,28 @@ public class Constant {
             }
             return 0;
         }
+        public static int GetMaxHealth(int enemyType){
+            switch ( enemyType){
+                case PIG, B_PIG:
+                    return 10;
+                case KING_PIG:
+                    return 30;
+                default:
+                    return 1;
+            }
+        }
+        public static int GeEnemyDamage(int enemyType){
+            switch (enemyType){
+                case PIG:
+                    return 15;
+                case KING_PIG:
+                    return 35;
+                case B_PIG:
+                    return 0;
+                default:
+                    return 0;
+            }
+        }
     }
     public static class UI{
         public static class Buttons{

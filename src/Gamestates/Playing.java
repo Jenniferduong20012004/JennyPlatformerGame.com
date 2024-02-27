@@ -9,6 +9,7 @@ import utilz.LoadSave;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 
 import static utilz.LevelOne.Enemy_levelOne;
 import static utilz.LevelOne.LEVEL_ONE;
@@ -32,7 +33,7 @@ public class Playing extends States implements Gamestates{
     }
     private void initClasses() {
         levelManager = new LevelManager(game);
-        player = new Player(200,200,(int) (78 * Game.SCALE), (int) (58 * Game.SCALE));
+        player = new Player(200,200,(int) (78 * Game.SCALE), (int) (58 * Game.SCALE),this);
         enemyManager = new EnemyManager(this);
         pause = new Pausing(game, this);
     }
@@ -85,7 +86,7 @@ public class Playing extends States implements Gamestates{
         player.render(g,xLvlOffset);
         enemyManager.render(g,xLvlOffset);
         if (paused) {
-            g.setColor (new Color (0,0,0,150));
+            g.setColor (new Color (0,0,0, 50));
             g.fillRect (0,0,Game.GAME_WIDTH, Game.GAME_HEIGHT);
             pause.render(g);
         }
@@ -161,4 +162,12 @@ public class Playing extends States implements Gamestates{
     public void unPauseGame(){
         paused = false;
     }
+    public void resetAll(){
+
+    }
+
+    public void checkEnemyIsHit(Rectangle2D.Float attackbox) {
+        enemyManager.checkEnemyIsHit(attackbox);
+    }
 }
+

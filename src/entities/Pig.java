@@ -2,6 +2,7 @@ package entities;
 
 import Main.Game;
 import utilz.Constant;
+import utilz.LoadSave;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -40,6 +41,14 @@ public class Pig extends Enemy{
                     }
                     move(lvlData);
                     break;
+                case ATTACK:
+                    if (aniIndex==0){
+                        attackCheck = false;
+                    }
+                    if (aniIndex == 2&&!attackCheck){
+                        checkEnemyAttack(attackbox,player);
+                    }
+                    break;
             }
         }
 
@@ -51,9 +60,14 @@ public class Pig extends Enemy{
     }
 
     @Override
-    protected void afterAttack() {
-        if (enemyState == ATTACK){
-            enemyState = IDLE;
+    protected void checkState() {
+        switch (enemyState){
+            case ATTACK, HIT:
+                enemyState = IDLE;
+                break;
+            case DEAD:
+                active = false;
+                break;
         }
     }
 

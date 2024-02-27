@@ -12,6 +12,7 @@ public class BoxPig extends Enemy{
     public void update(int [][] lvlData){
         updateAnimationTick();
         updateMove(lvlData);
+        //updateAttackBox();
     }
     public void updateMove(int [][] lvlData){
         if (firstUpdate){
@@ -28,9 +29,10 @@ public class BoxPig extends Enemy{
     }
 
     @Override
-    protected void afterAttack() {
-        if (enemyState == B_THROWING_BOX){
-            enemyState = B_IDLE;
+    protected void checkState() {
+        switch (enemyState) {
+            case B_THROWING_BOX:
+                active = false;
         }
     }
 
@@ -38,4 +40,5 @@ public class BoxPig extends Enemy{
     public void initAttackBox() {
 
     }
+
 }

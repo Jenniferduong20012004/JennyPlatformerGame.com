@@ -1,4 +1,5 @@
 package entities;
+import Gamestates.Playing;
 import Main.Game;
 import utilz.Constant.EnemyConstants;
 import utilz.helpMethods;
@@ -23,12 +24,32 @@ public abstract class Enemy extends Entity{
     protected float attackDistance = Game.TILES_SIZE *1;
     protected Rectangle2D.Float attackbox;
     protected int attackBoxOffsetX;
-
+    protected int maxHealth;
+    protected int currentHealth;
+    protected boolean active = true;
+    protected  boolean attackCheck;
     public Enemy(float x, float y, int width, int height,int enemyType, int enemyState) {
         super(x, y, width, height);
         this.enemyState = enemyState;
         this.enemyType=enemyType;
         initHitbox (x,y,width, height);
+        maxHealth = GetMaxHealth(enemyType);
+        currentHealth = maxHealth;
+    }
+    public void hurt (int amount, int dead, int hit){
+        currentHealth -=amount;
+        if (currentHealth<=0){
+            newState(dead);
+        }
+        else{
+            newState(hit);
+        }
+    }
+    protected void checkEnemyAttack (Rectangle2D.Float attack,Player player){
+        if(attack.intersects(player.hitbox)){
+            player.changeHealth(-EnemyConstants.GeEnemyDamage(enemyType));
+        }
+        attackCheck = true;
     }
     protected void updateAnimationTick(){
         aniTick++;
@@ -37,11 +58,11 @@ public abstract class Enemy extends Entity{
             aniIndex++;
             if (aniIndex >=EnemyConstants.getSpriteAmount(enemyType,enemyState)){
                 aniIndex =0;
-                afterAttack();
+                checkState();
             }
         }
     }
-    protected abstract void afterAttack();
+    protected abstract void checkState();
     public abstract void initAttackBox();
     protected void changeWalkDir() {
         if (walkDir == LEFT){
@@ -145,5 +166,8 @@ public abstract class Enemy extends Entity{
             attackbox.x = hitbox.x - attackBoxOffsetX;
         }
         attackbox.y = hitbox.y;
+    }
+    public boolean isActive(){
+        return active;
     }
 }

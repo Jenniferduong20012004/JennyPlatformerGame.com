@@ -1,5 +1,6 @@
 package entities;
 
+import Gamestates.Playing;
 import Main.Game;
 import utilz.*;
 
@@ -57,9 +58,12 @@ public class Player extends Entity{
     private Rectangle2D.Float attackbox;
     private int flipX =0;
     private int flipW =1;
+    private  boolean attackCheck;
+    private Playing playing;
 
-    public Player(float x, float y, int width, int height) {
+    public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
+        this.playing =playing;
         loadAnimation();
         initHitbox(x,y,(int) (18*Game.SCALE), (int)(28*Game.SCALE));
         intAttackBox();
@@ -75,9 +79,20 @@ public class Player extends Entity{
         //observer
         loadlvlData(LevelOne.LEVEL_ONE);
         updatePos();
+        if (attack){
+            checkAttack();
+        }
         updateAnimationTick();
         updateDiamondTick();
         setAnimation();
+    }
+
+    private void checkAttack() {
+        if (attackCheck || aniIndex!=1 ){
+            return;
+        }
+        attackCheck = true;
+        playing.checkEnemyIsHit(attackbox);
     }
 
     private void updateAttackBox() {
@@ -169,6 +184,7 @@ public class Player extends Entity{
                 aniIndex =0;
                 attack = false;
                 jump = false;
+                attackCheck = false;
             }
         }
     }
@@ -192,6 +208,7 @@ public class Player extends Entity{
         }
         if (attack){
             playerAction = ATTACK;
+            //if (startAn)
         }
     }
     private void updatePos() {
