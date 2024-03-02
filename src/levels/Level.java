@@ -11,8 +11,8 @@ import utilz.helpMethods;
 
 import java.awt.*;
 import java.util.ArrayList;
-import static utilz.helpMethods.GetBoxPig;
-import static utilz.helpMethods.GetKingPig;
+
+import static utilz.helpMethods.*;
 
 public class Level {
     private int [][] lvlData;
@@ -35,6 +35,7 @@ public class Level {
     }
 
     private void calculatePlayerSpawn() {
+        playerSpawn = GetPlayerSpawn(currentLevel);
     }
 
     private void calculateLvlOffset() {

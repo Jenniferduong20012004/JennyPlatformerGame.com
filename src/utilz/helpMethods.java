@@ -88,12 +88,13 @@ public class helpMethods {
         for (int i = 0; i < xEnd - xStart; i++) {
             if (IsTileSolid(xStart + i, y, lvlData))
                 return false;
-            if (!IsTileSolid(xStart+i, y+1, lvlData)){
+            if (!IsTileSolid(xStart + i, y + 1, lvlData)) {
                 return false;
             }
         }
         return true;
     }
+
     public static boolean IsSightClear(int[][] lvlData, Rectangle2D.Float enemyHitbox, Rectangle2D.Float playerHitbox, int yTile) {
         int enemyXTile = (int) enemyHitbox.x / Game.TILES_SIZE;
         int playerXTile = (int) playerHitbox.x / Game.TILES_SIZE;
@@ -104,12 +105,13 @@ public class helpMethods {
 
         }
     }
-    public static ArrayList<Pig> GetPigs(int [][][] lvlChoose){
+
+    public static ArrayList<Pig> GetPigs(int[][][] lvlChoose) {
         ArrayList<Pig> list = new ArrayList<>();
-        for (int i =0; i< lvlChoose[1].length;i++){
-            for (int j =0; j<lvlChoose[1][i].length;j++){
-                if (lvlChoose [1][i][j]==1){
-                    list.add (new Pig(j*Game.TILES_SIZE,i*Game.TILES_SIZE));
+        for (int i = 0; i < lvlChoose[1].length; i++) {
+            for (int j = 0; j < lvlChoose[1][i].length; j++) {
+                if (lvlChoose[1][i][j] == 1) {
+                    list.add(new Pig(j * Game.TILES_SIZE, i * Game.TILES_SIZE));
                 }
             }
         }
@@ -118,33 +120,46 @@ public class helpMethods {
 
     public static ArrayList<KingPig> GetKingPig(int[][][] lvlChoose) {
         ArrayList<KingPig> list = new ArrayList<>();
-        for (int i =0; i< lvlChoose[1].length;i++){
-            for (int j =0; j<lvlChoose[1][i].length;j++){
-                if (lvlChoose [1][i][j]==2){
-                    list.add (new KingPig(j*Game.TILES_SIZE,i*Game.TILES_SIZE));
+        for (int i = 0; i < lvlChoose[1].length; i++) {
+            for (int j = 0; j < lvlChoose[1][i].length; j++) {
+                if (lvlChoose[1][i][j] == 2) {
+                    list.add(new KingPig(j * Game.TILES_SIZE, i * Game.TILES_SIZE));
                 }
             }
         }
         return list;
     }
-    public static ArrayList<BoxPig> GetBoxPig(int[][][] lvlChoose){
+
+    public static ArrayList<BoxPig> GetBoxPig(int[][][] lvlChoose) {
         ArrayList<BoxPig> list = new ArrayList<>();
-        for (int i =0; i< lvlChoose[1].length;i++){
-            for (int j =0; j<lvlChoose[1][i].length;j++){
-                if (lvlChoose [1][i][j]==3){
-                    list.add (new BoxPig(j*Game.TILES_SIZE,i*Game.TILES_SIZE));
+        for (int i = 0; i < lvlChoose[1].length; i++) {
+            for (int j = 0; j < lvlChoose[1][i].length; j++) {
+                if (lvlChoose[1][i][j] == 3) {
+                    list.add(new BoxPig(j * Game.TILES_SIZE, i * Game.TILES_SIZE));
                 }
             }
         }
         return list;
     }
-    public static int [][] GetLevelData (int [][][] lvlData){
-        int [][] result = new int [lvlData[0].length][lvlData[0][0].length];
-        for (int j =0; j <lvlData[0].length; j ++ ){
-            for (int i =0; i <lvlData[0][0].length; i++ ){
-                result [j][i]= lvlData[0][j][i];
+
+    public static int[][] GetLevelData(int[][][] lvlData) {
+        int[][] result = new int[lvlData[0].length][lvlData[0][0].length];
+        for (int j = 0; j < lvlData[0].length; j++) {
+            for (int i = 0; i < lvlData[0][0].length; i++) {
+                result[j][i] = lvlData[0][j][i];
             }
         }
         return result;
+    }
+
+    public static Point GetPlayerSpawn(int[][][] lvlChoose) {
+        for (int i = 0; i < lvlChoose[1].length; i++) {
+            for (int j = 0; j < lvlChoose[1][i].length; j++) {
+                if (lvlChoose[1][i][j] == 100) {
+                    return new Point(j * Game.TILES_SIZE, i * Game.TILES_SIZE);
+                }
+            }
+        }
+        return new Point(1 * Game.TILES_SIZE, 1 * Game.TILES_SIZE);
     }
 }

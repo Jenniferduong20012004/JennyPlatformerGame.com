@@ -82,15 +82,25 @@ public class EnemyManager {
 
     }
     public void update( Player player){
+        boolean isAnyActive = false;
         for (Pig pig: pigs)
-            if (pig.isActive())
+            if (pig.isActive()) {
                 pig.update(levelManager.getCurrentLevel().getLevelData(), player);
+                isAnyActive = true;
+            }
         for (KingPig kings: kingpigs)
-            if (kings.isActive())
+            if (kings.isActive()) {
                 kings.update(levelManager.getCurrentLevel().getLevelData(), player);
+                isAnyActive = true;
+            }
         for (BoxPig box: boxpigs)
-            if (box.isActive())
+            if (box.isActive()) {
                 box.update(levelManager.getCurrentLevel().getLevelData());
+                isAnyActive = true;
+            }
+        if (!isAnyActive){
+            playing.setLevelComplete(true);
+        }
     }
     public void render(Graphics g, int lvlOffset){
         renderPigs(g,lvlOffset);

@@ -69,7 +69,7 @@ public class LevelComplete extends States implements Gamestates{
         }
         else if (isIn(e,next)){
             if (next.isMousePress()){
-
+                playing.loadNextLevel();
             }
         }
         menu.resetBools();

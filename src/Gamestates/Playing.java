@@ -35,7 +35,9 @@ public class Playing extends States implements Gamestates{
     public void loadNextLevel(){
         resetAll();
         levelManager.loadNextLevel();
+        player.setPawn(levelManager.getCurrentLevel().getPlayerSpawn());
     }
+    public void setLevelComplete (boolean levelComplete){this.lvlComplete = levelComplete;}
 
     private void loadStartLevel() {
         enemyManager.loadEnemies(levelManager.getCurrentLevel());
@@ -213,6 +215,7 @@ public class Playing extends States implements Gamestates{
     public void resetAll(){
         gameOver = false;
         paused = false;
+        lvlComplete=false;
         player.resetAll();
         enemyManager.resetAllEnemy();
     }
