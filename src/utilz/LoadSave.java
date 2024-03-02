@@ -63,6 +63,8 @@ public class LoadSave {
     public static final String BIG_DIAMOND_IDLE = "UI/Big Diamond Idle (18x14).png";
     public static final String NUMBERS = "UI/Numbers (6x8).png";
     public static final String SMALL_DIAMOND = "UI/Small Diamond (18x14).png";
+    public static final String COMPLETE = "UI/completed_sprite.png";
+    public static final String DEATH_SCREEN = "UI/death_screen.png";
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img=null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+fileName);
@@ -81,55 +83,7 @@ public class LoadSave {
         }
         return img;
     }
-    public static int [][] GetLevelData(int [][] lvlChoose){
-        /*int [][] lvlData = new int [100][100];
-        BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ONE);
-        for (int i =0;i< img.getHeight(); i++){
-            for (int j =0; j< img.getWidth(); j++){
-                Color color = new Color(img.getRGB(j,i));
-                int value = color.getRed();
-                if(value >=48){
-                    value = 0;
-                }
-                lvlData[i][j]=value;
-            }
-        }
-        return lvlData;*/
-        int [][] lvl = lvlChoose;
-        return lvl;
-        }
-        public static ArrayList<Pig> GetPigs(int [][] lvlChoose){
-            ArrayList<Pig> list = new ArrayList<>();
-            for (int i =0; i< lvlChoose.length;i++){
-                for (int j =0; j<lvlChoose[i].length;j++){
-                    if (lvlChoose [i][j]==1){
-                        list.add (new Pig(j*Game.TILES_SIZE,i*Game.TILES_SIZE));
-                    }
-                }
-            }
-            return list;
-        }
 
-    public static ArrayList<KingPig> GetKingPig(int[][] lvlChoose) {
-        ArrayList<KingPig> list = new ArrayList<>();
-        for (int i =0; i< lvlChoose.length;i++){
-            for (int j =0; j<lvlChoose[i].length;j++){
-                if (lvlChoose [i][j]==2){
-                    list.add (new KingPig(j*Game.TILES_SIZE,i*Game.TILES_SIZE));
-                }
-            }
-        }
-        return list;
-    }
-    public static ArrayList<BoxPig> GetBoxPig(int[][] lvlChoose){
-        ArrayList<BoxPig> list = new ArrayList<>();
-        for (int i =0; i< lvlChoose.length;i++){
-            for (int j =0; j<lvlChoose[i].length;j++){
-                if (lvlChoose [i][j]==3){
-                    list.add (new BoxPig(j*Game.TILES_SIZE,i*Game.TILES_SIZE));
-                }
-            }
-        }
-        return list;
-    }
+
+
 }

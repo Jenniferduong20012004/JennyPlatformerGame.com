@@ -47,7 +47,7 @@ public class BoxPig extends Enemy{
         hitbox.y = y;
         firstUpdate = true;
         currentHealth = maxHealth;
-        newState(IDLE);
+        newState(B_IDLE);
         fallSpeed =0;
     }
 

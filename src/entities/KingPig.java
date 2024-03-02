@@ -79,7 +79,7 @@ public class KingPig extends Enemy{
         hitbox.y = y;
         firstUpdate = true;
         currentHealth = maxHealth;
-        newState(IDLE);
+        newState(K_IDLE);
         fallSpeed =0;
     }
 }

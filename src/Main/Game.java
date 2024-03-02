@@ -11,11 +11,7 @@ public class Game implements Runnable{
     private static Game gameInstance = null;
     private GameWindow gamewindow;
     private GamePanel gamePanel;
-    private LevelManager levelManager;
-    private Playing playing;
-    private Menu menu;
     private Gamestates state;
-    private Player player;
     private Thread gameThread;
     private final int FPS_SET = 120;
     private final int UPS_SET =200;
@@ -30,14 +26,13 @@ public class Game implements Runnable{
         initClasses();
         gamePanel = new GamePanel(this);
         gamewindow = new GameWindow(gamePanel);
+        gamePanel.setFocusable (true);
         gamePanel.requestFocus();
         startGameLoop();
     }
 
     private void initClasses() {
         state = new Menu (this);
-        //state = new Playing (this);
-
     }
 
     public static Game getGame(){

@@ -4,15 +4,11 @@ import Main.Game;
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
-import utilz.LoadSave;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
-
-import static utilz.LevelOne.Enemy_levelOne;
-import static utilz.LevelOne.LEVEL_ONE;
 
 public class Playing extends States implements Gamestates{
     private LevelManager levelManager;
@@ -23,22 +19,43 @@ public class Playing extends States implements Gamestates{
     private int xLvlOffset;
     private int leftBorder = (int)(0.2*Game.GAME_WIDTH);
     private int rightBorder = (int)(0.8*Game.GAME_WIDTH);
-    private int lvlTileWide = LoadSave.GetLevelData(LEVEL_ONE)[0].length;
-    private int maxTileOffset = lvlTileWide- Game.TILES_IN_WIDTH;
-    private int maxLvlOffsetX = maxTileOffset *Game.TILES_SIZE;
+    private int maxLvlOffsetX;
     private boolean gameOver;
     private GameOver over;
+    private LevelComplete levelComplete;
+    private boolean lvlComplete = false;
+    //private int level = 1;
 
     public Playing(Game game) {
         super(game);
         initClasses();
+        calculateLvlOffset();
+        loadStartLevel();
     }
+    public void loadNextLevel(){
+        resetAll();
+        levelManager.loadNextLevel();
+    }
+
+    private void loadStartLevel() {
+        enemyManager.loadEnemies(levelManager.getCurrentLevel());
+    }
+
+    private void calculateLvlOffset() {
+        maxLvlOffsetX = levelManager.getCurrentLevel().getLvlOffset();
+    }
+    public void setMaxLvlOffSet (int lvl){
+        this.maxLvlOffsetX = lvl;
+    }
+
     private void initClasses() {
-        levelManager = new LevelManager(game);
+        levelManager = new LevelManager(game, this);
+        enemyManager = new EnemyManager(this, levelManager);
         player = new Player(200,200,(int) (78 * Game.SCALE), (int) (58 * Game.SCALE),this);
-        enemyManager = new EnemyManager(this);
+        player.loadlvlData(levelManager.getCurrentLevel().getLevelData());
         pause = new Pausing(game, this);
         over = new GameOver(game, this);
+        levelComplete = new LevelComplete(game, this);
     }
     public Player getPlayer(){
         return player;
@@ -55,14 +72,16 @@ public class Playing extends States implements Gamestates{
 
     @Override
     public void update() {
-        if (!paused&& !gameOver) {
+        if (paused){
+            pause.update();
+        }
+        else if (lvlComplete){
+            levelComplete.update();
+        } else if (!gameOver) {
             levelManager.update();
             player.update();
+            enemyManager.update(player);//levelManager.getCurrentLevel().getLevelData(), player);
             checkCloseToBorder();
-            enemyManager.update(LEVEL_ONE, player);
-        }
-        else {
-            pause.update();
         }
     }
 
@@ -82,7 +101,6 @@ public class Playing extends States implements Gamestates{
             xLvlOffset =0;
         }
     }
-
     @Override
     public void render(Graphics g) {
         levelManager.render(g, xLvlOffset);
@@ -95,20 +113,31 @@ public class Playing extends States implements Gamestates{
         }
         else if (gameOver){
             over.render(g);
+        } else if (lvlComplete) {
+            levelComplete.render(g);
         }
     }
 
     @Override
     public void Mouseclick(MouseEvent e) {
-        if (paused){
-            pause. Mouseclick(e);
+        if (!gameOver) {
+            if (paused) {
+                pause.Mouseclick(e);
+            }
+            else if (lvlComplete){
+                levelComplete.Mouseclick(e);
+            }
         }
     }
 
     @Override
     public void MouseRelease(MouseEvent e) {
-        if (paused){
-            pause. MouseRelease(e);
+        if (!gameOver) {
+            if (paused) {
+                pause.MouseRelease(e);
+            } else if (lvlComplete) {
+                levelComplete.MouseRelease(e);
+            }
         }
     }
 
@@ -117,6 +146,8 @@ public class Playing extends States implements Gamestates{
         if (!gameOver) {
             if (paused) {
                 pause.MouseMove(e);
+            } else if (lvlComplete) {
+                levelComplete.MouseMove(e);
             }
         }
     }
@@ -184,6 +215,9 @@ public class Playing extends States implements Gamestates{
         paused = false;
         player.resetAll();
         enemyManager.resetAllEnemy();
+    }
+    public EnemyManager getEnemyManager(){
+        return enemyManager;
     }
 
     public void checkEnemyIsHit(Rectangle2D.Float attackbox) {

@@ -131,7 +131,7 @@ public class Pausing extends States implements Gamestates{
         }
         else if (isIn (e, replayB)) {
             if (replayB.isMousePress()) {
-                game.setState(new Menu(game));
+                playing.resetAll();
                 playing.unPauseGame();
             }
         }

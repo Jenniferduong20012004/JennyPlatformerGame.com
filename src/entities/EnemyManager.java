@@ -1,6 +1,7 @@
 package entities;
 
 import Gamestates.Playing;
+import levels.LevelManager;
 import utilz.Constant;
 import utilz.LoadSave;
 
@@ -11,23 +12,27 @@ import java.util.ArrayList;
 
 import static utilz.Constant.EnemyConstants.*;
 import static utilz.LoadSave.*;
-import static utilz.LevelOne.*;
+import static utilz.helpMethods.GetLevelData;
+
+import levels.Level.*;
 
 public class EnemyManager {
     private Playing playing;
+    private levels.Level level;
     private ArrayList<Pig> pigs = new ArrayList<>();
     private ArrayList<KingPig> kingpigs = new ArrayList<>();
     private BufferedImage[][] pigArr, kingPigArr, boxPigArr;
     private ArrayList<BoxPig> boxpigs = new ArrayList<>();
-    public EnemyManager(Playing playing){
+    private LevelManager levelManager;
+    public EnemyManager(Playing playing, LevelManager lm){
+        this.levelManager = lm;
         this.playing = playing;
         loadEnemyImg();
-        addEnemies();
     }
-    private void addEnemies() {
-        pigs = LoadSave.GetPigs(Enemy_levelOne);
-        kingpigs = LoadSave.GetKingPig (Enemy_levelOne);
-        boxpigs = LoadSave.GetBoxPig (Enemy_levelOne);
+    public void loadEnemies(levels.Level level) {
+        pigs = level.getPigs();
+        kingpigs = level.getKingPigs();
+        boxpigs = level.getBoxPigs();
     }
 
     private void loadEnemyImg() {
@@ -76,16 +81,16 @@ public class EnemyManager {
         for (int i =0; i <Constant.EnemyConstants.getSpriteAmount(B_PIG,B_THROWING_BOX); i++){boxPigArr[B_THROWING_BOX][i] =b_throw.getSubimage(i*26,0,26,30);}
 
     }
-    public void update(int [][] lvlData, Player player){
+    public void update( Player player){
         for (Pig pig: pigs)
             if (pig.isActive())
-                pig.update(lvlData, player);
+                pig.update(levelManager.getCurrentLevel().getLevelData(), player);
         for (KingPig kings: kingpigs)
             if (kings.isActive())
-                kings.update(lvlData, player);
+                kings.update(levelManager.getCurrentLevel().getLevelData(), player);
         for (BoxPig box: boxpigs)
             if (box.isActive())
-                box.update(lvlData);
+                box.update(levelManager.getCurrentLevel().getLevelData());
     }
     public void render(Graphics g, int lvlOffset){
         renderPigs(g,lvlOffset);

@@ -81,7 +81,6 @@ public class Player extends Entity{
         }
         updateAttackBox();
         //observer
-        loadlvlData(LevelOne.LEVEL_ONE);
         updatePos();
         if (attack){
             checkAttack();
