@@ -13,7 +13,7 @@ import static utilz.Constant.UI.UmrButtons.UMR_SIZE;
 
 public class LevelComplete extends States implements Gamestates{
     private Playing playing;
-    private UrmButton menu, next;
+    private UrmButton menu, replay;
     private BufferedImage img;
     private int bgX, bgY, bgW, bgH;
     public LevelComplete(Game game, Playing playing) {
@@ -27,7 +27,7 @@ public class LevelComplete extends States implements Gamestates{
         int menuX = (int)(330*Game.SCALE);
         int nextX = (int)(445*Game.SCALE);
         int y = (int)(195*Game.SCALE);
-        next = new UrmButton(nextX,y, UMR_SIZE, UMR_SIZE, 0);
+        replay = new UrmButton(nextX,y, UMR_SIZE, UMR_SIZE, 0);
         menu = new UrmButton(menuX,y, UMR_SIZE, UMR_SIZE, 2 );
         }
 
@@ -39,14 +39,14 @@ public class LevelComplete extends States implements Gamestates{
 
     @Override
     public void update() {
-        next.update();
+        replay.update();
         menu.update();
     }
 
     @Override
     public void render(Graphics g) {
         g.drawImage(img, bgX, bgY, bgW, bgH, null);
-        next.draw(g);
+        replay.draw(g);
         menu.draw(g);
     }
 
@@ -55,8 +55,8 @@ public class LevelComplete extends States implements Gamestates{
         if (isIn(e,menu)){
             menu.setMousePress(true);
         }
-        else if (isIn(e,next)){
-            next.setMousePress(true);
+        else if (isIn(e,replay)){
+            replay.setMousePress(true);
         }
     }
 
@@ -67,24 +67,24 @@ public class LevelComplete extends States implements Gamestates{
                 game.setState(new Menu(game));
             }
         }
-        else if (isIn(e,next)){
-            if (next.isMousePress()){
+        else if (isIn(e,replay)){
+            if (replay.isMousePress()){
                 playing.loadNextLevel();
             }
         }
         menu.resetBools();
-        next.resetBools();
+        replay.resetBools();
     }
 
     @Override
     public void MouseMove(MouseEvent e) {
-        next.setMouseOver(false);
+        replay.setMouseOver(false);
         menu.setMouseOver(false);
         if (isIn(e,menu)){
             menu.setMouseOver(true);
         }
-        else if (isIn(e,next)){
-            next.setMouseOver(true);
+        else if (isIn(e,replay)){
+            replay.setMouseOver(true);
         }
     }
 

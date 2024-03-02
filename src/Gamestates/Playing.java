@@ -85,6 +85,9 @@ public class Playing extends States implements Gamestates{
             enemyManager.update(player);//levelManager.getCurrentLevel().getLevelData(), player);
             checkCloseToBorder();
         }
+        else if (gameOver){
+            over.update();
+        }
     }
 
     private void checkCloseToBorder() {
@@ -130,6 +133,7 @@ public class Playing extends States implements Gamestates{
                 levelComplete.Mouseclick(e);
             }
         }
+        over.Mouseclick(e);
     }
 
     @Override
@@ -141,6 +145,7 @@ public class Playing extends States implements Gamestates{
                 levelComplete.MouseRelease(e);
             }
         }
+        over.MouseRelease(e);
     }
 
     @Override
@@ -152,6 +157,7 @@ public class Playing extends States implements Gamestates{
                 levelComplete.MouseMove(e);
             }
         }
+        over.MouseMove(e);
     }
 
     @Override
