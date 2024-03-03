@@ -25,7 +25,6 @@ public class Playing extends States implements Gamestates{
     private GameOver over;
     private LevelComplete levelComplete;
     private boolean lvlComplete = false;
-    //private int level = 1;
     private ObjectManager objectManager;
 
 
@@ -240,6 +239,7 @@ public class Playing extends States implements Gamestates{
     public void checkEnemyIsHit(Rectangle2D.Float attackbox) {
         enemyManager.checkEnemyIsHit(attackbox);
     }
+
 
     public void setGameOver(boolean b) {
         this.gameOver=b;

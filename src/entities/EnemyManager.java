@@ -123,19 +123,19 @@ public class EnemyManager {
     public void checkEnemyIsHit(Rectangle2D.Float attackbox){
         for (Pig pig:pigs){
             if (attackbox.intersects(pig.getHitbox())){
-                pig.hurt(10, Constant.EnemyConstants.DEAD,Constant.EnemyConstants.HIT);
+                pig.hurt(playing.getPlayer().getAttackDam(), Constant.EnemyConstants.DEAD,Constant.EnemyConstants.HIT);
                 return;
             }
         }
         for ( KingPig pig: kingpigs){
             if (attackbox.intersects(pig.getHitbox())){
-                pig.hurt(10, Constant.EnemyConstants.K_DEAD,Constant.EnemyConstants.K_HIT);
+                pig.hurt(playing.getPlayer().getAttackDam(), Constant.EnemyConstants.K_DEAD,Constant.EnemyConstants.K_HIT);
                 return;
             }
         }
         for ( BoxPig pig: boxpigs){
             if (attackbox.intersects(pig.getHitbox())){
-                pig.hurt(10, B_THROWING_BOX,B_THROWING_BOX);
+                pig.hurt(playing.getPlayer().getAttackDam(), B_THROWING_BOX,B_THROWING_BOX);
                 return;
             }
         }

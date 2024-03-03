@@ -46,7 +46,7 @@ public class ObjectManager {
                 if (gc.getHitbox().intersects(hitbox)){
                     gc.setAnimation(true);
                     if(gc.getObjType()==BOX){
-                        potions.add(new Potion ((int)(gc.getHitbox().x+gc.getHitbox().width/2),(int)(gc.getHitbox().y-5* Game.SCALE), BLUE_POTION));
+                        potions.add(new Potion ((int)(gc.getHitbox().x+gc.getHitbox().width/2),(int)(gc.getHitbox().y-gc.getHitbox().height), BLUE_POTION));
                         return;
                     }
                     else if (gc.getObjType()== BARREL){

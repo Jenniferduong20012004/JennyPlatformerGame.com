@@ -36,9 +36,10 @@ public class Player extends Entity{
     private int statusBarX = (int) (10 * Game.SCALE);
     private int statusBarY = (int) (10 * Game.SCALE);
     private int healthBarWidth = (int)(150*Game.SCALE);
+    private int powerBarWidth = (int)(100*Game.SCALE);
     private int healthBarHeight = (int)(4*Game.SCALE);
-    private int healthBarX = (int) (34*Game.SCALE);
-    private int healthBarY = (int) (14*Game.SCALE);
+    private int powerBarX = (int) (100*Game.SCALE);
+    private int powerBarY = (int) (8*Game.SCALE);
     private BufferedImage[] diamondImg;
     private BufferedImage[] numberOfDiamondImg;
     private int diamondTick =0, diamondtime =0;
@@ -51,15 +52,23 @@ public class Player extends Entity{
     private int numberX = (int) (64*Game.SCALE);
     private int numberY = (int) (76*Game.SCALE);
     private int maxHealth = 100;
+    private int maxPower = 100;
+    private int currentPower =0;
+
     private int healthBarXStart = (int)(34*Game.SCALE);
     private int healthBarYStart = (int)(14*Game.SCALE);
+    private int powerBarXStart = (int)(45*Game.SCALE);
+    private int powerBarYStart = (int)(33*Game.SCALE);
     private int currentHealth = maxHealth;
     private int healthWidth = healthBarWidth;
+    private int powerWidth = powerBarWidth;
+    private int powerBarHeight =(int)(4*Game.SCALE);
     private Rectangle2D.Float attackbox;
     private int flipX =0;
     private int flipW =1;
     private  boolean attackCheck;
     private Playing playing;
+    private int attackDam=5;
 
     public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
@@ -80,6 +89,7 @@ public class Player extends Entity{
     }
 
     public void update (){
+        updatePowerBar();
         updateHealthBar();
         if (currentHealth <=0&&aniIndex == getSpriteAmount(DEAD)-1){
             playing.setGameOver(true);
@@ -98,6 +108,14 @@ public class Player extends Entity{
         updateAnimationTick();
         updateDiamondTick();
         setAnimation();
+    }
+
+    private void updatePowerBar() {
+        powerWidth = (int)((currentPower/(float)maxPower)*powerBarWidth);
+    }
+
+    public int getAttackDam() {
+        return attackDam;
     }
 
     private void checkHeartTouch() {
@@ -143,6 +161,8 @@ public class Player extends Entity{
         g.fillRect(healthBarXStart+statusBarX, healthBarYStart+statusBarY,healthWidth ,healthBarHeight);
         g.drawImage(diamondImg[diamondTick], diamondBarX,diamondBarY,diamondBarWidth*2,diamondBarHeight*2,null);
         g.drawImage(numberOfDiamondImg[9], numberX+20,numberY+3,numberWidth*2,numberHeight*2,null);
+        g.setColor(Color.YELLOW);
+        g.fillRect(powerBarXStart+statusBarX, powerBarYStart+statusBarY,powerWidth ,powerBarHeight);
     }
     private void updateDiamondTick(){
         diamondtime++;
@@ -355,5 +375,10 @@ public class Player extends Entity{
     }
 
     public void changePower(int bluePotionValue) {
+        currentPower += bluePotionValue;
+        if (currentPower>=maxHealth){
+            currentPower =0;
+            attackDam +=10;
+        }
     }
 }
