@@ -1,6 +1,7 @@
 package Object;
 
 import Gamestates.Playing;
+import Main.Game;
 import levels.Level;
 import utilz.LoadSave;
 
@@ -45,11 +46,11 @@ public class ObjectManager {
                 if (gc.getHitbox().intersects(hitbox)){
                     gc.setAnimation(true);
                     if(gc.getObjType()==BOX){
-                        potions.add(new Potion ((int)(gc.getHitbox().x+gc.getHitbox().width/2),(int)(gc.getHitbox().y+gc.getHitbox().height/4), BLUE_POTION));
+                        potions.add(new Potion ((int)(gc.getHitbox().x+gc.getHitbox().width/2),(int)(gc.getHitbox().y-5* Game.SCALE), BLUE_POTION));
                         return;
                     }
                     else if (gc.getObjType()== BARREL){
-                        hearts.add(new Heart ((int)(gc.getHitbox().x+gc.getHitbox().width/2),(int)(gc.getHitbox().y+gc.getHitbox().height/4), HEART));
+                        hearts.add(new Heart ((int)(gc.getHitbox().x+gc.getHitbox().width/2),(int)(gc.getHitbox().y), HEART));
                         return;
                     }
                 }
