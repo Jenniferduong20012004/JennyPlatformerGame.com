@@ -1,6 +1,10 @@
 package Object;
 
+import Gamestates.Playing;
 import Main.Game;
+
+import static utilz.Constant.ObjectConstants.BLUE_POTION_VALUE;
+import static utilz.Constant.ObjectConstants.HEART_VALUE;
 
 public class Potion extends GameObject{
     public Potion(int x, int y, int objType) {
@@ -18,5 +22,9 @@ public class Potion extends GameObject{
 
     public void update(){
         updateAnimationTick();
+    }
+
+    public void applyEffectToPlayer(Playing playing) {
+        playing.getPlayer().changePower(BLUE_POTION_VALUE);
     }
 }

@@ -11,7 +11,7 @@ public class Constant {
         public static final int BLUE_POTION = 2;
         public static final int BOX = 3;
         public static final int BARREL = 4;
-        public static final int HEART_VALE = 15;
+        public static final int HEART_VALUE = 15;
         public static final int DIAMOND_VALUE = 1;
         public static final int BLUE_POTION_VALUE = 10;
         public static final int HEART_WIDTH_DEFAULT = 42/2;

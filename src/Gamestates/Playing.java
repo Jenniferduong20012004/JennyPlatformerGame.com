@@ -230,6 +230,7 @@ public class Playing extends States implements Gamestates{
         lvlComplete=false;
         player.resetAll();
         enemyManager.resetAllEnemy();
+        objectManager.resetAll();
     }
     public EnemyManager getEnemyManager(){
         return enemyManager;
@@ -251,6 +252,18 @@ public class Playing extends States implements Gamestates{
         resetAll();
         levelManager.loadCurrentLevel();
         player.setPawn(levelManager.getCurrentLevel().getPlayerSpawn());
+    }
+
+    public void checkPotionTouch(Rectangle2D.Float hitbox) {
+        objectManager.checkObjectTouch(hitbox);
+    }
+
+    public void checkHeartTouch(Rectangle2D.Float hitbox) {
+        objectManager.checkObjectTouch(hitbox);
+    }
+
+    public void checkObjectHit(Rectangle2D.Float attackbox) {
+        objectManager.checkObjectHit(attackbox);
     }
 }
 

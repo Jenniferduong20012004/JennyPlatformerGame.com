@@ -91,9 +91,21 @@ public class Player extends Entity{
         if (attack){
             checkAttack();
         }
+        if (moving){
+            checkPotionTouch();
+            checkHeartTouch();
+        }
         updateAnimationTick();
         updateDiamondTick();
         setAnimation();
+    }
+
+    private void checkHeartTouch() {
+        playing.checkHeartTouch(hitbox);
+    }
+
+    private void checkPotionTouch() {
+        playing.checkPotionTouch(hitbox);
     }
 
     private void checkAttack() {
@@ -102,6 +114,7 @@ public class Player extends Entity{
         }
         attackCheck = true;
         playing.checkEnemyIsHit(attackbox);
+        playing.checkObjectHit(attackbox);
     }
 
     private void updateAttackBox() {
@@ -339,5 +352,8 @@ public class Player extends Entity{
         if (!helpMethods.IsEntityOnFloor(hitbox, lvlData)) {
             inAir = true;
         }
+    }
+
+    public void changePower(int bluePotionValue) {
     }
 }

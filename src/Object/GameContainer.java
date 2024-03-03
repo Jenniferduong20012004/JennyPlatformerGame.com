@@ -29,4 +29,7 @@ public class GameContainer extends GameObject{
             updateAnimationTick();
         }
     }
+    public void setAnimation (boolean animation){
+        this.doAnimation = animation;
+    }
 }

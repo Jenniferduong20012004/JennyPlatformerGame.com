@@ -22,12 +22,40 @@ public class ObjectManager {
         this.playing=playing;
         loadImgs();}
     public void checkObjectTouch(Rectangle2D.Float hitbox){
+        for (Heart h: hearts){
+            if (h.isActive()){
+                if (hitbox.intersects(h.getHitbox())){
+                    h.setActive(false);
+                    h.applyEffectToPlayer(playing);
+                }
+            }
+        }
+        for (Potion p: potions){
+            if (p.isActive())
+                 if (hitbox.intersects(p.getHitbox())){
+                     p.setActive(false);
+                     p.applyEffectToPlayer(playing);
+                 }
+        }
 
     }
-    public void applyEffectToPlayer(){
-
+    public void checkObjectHit(Rectangle2D.Float hitbox){
+        for (GameContainer gc: containers){
+            if (gc.isActive()){
+                if (gc.getHitbox().intersects(hitbox)){
+                    gc.setAnimation(true);
+                    if(gc.getObjType()==BOX){
+                        potions.add(new Potion ((int)(gc.getHitbox().x+gc.getHitbox().width/2),(int)(gc.getHitbox().y+gc.getHitbox().height/4), BLUE_POTION));
+                        return;
+                    }
+                    else if (gc.getObjType()== BARREL){
+                        hearts.add(new Heart ((int)(gc.getHitbox().x+gc.getHitbox().width/2),(int)(gc.getHitbox().y+gc.getHitbox().height/4), HEART));
+                        return;
+                    }
+                }
+            }
+        }
     }
-    public void checkObjectHit(Rectangle2D.Float hitbox){}
     private void loadImgs() {
         BufferedImage potionSprite = LoadSave.GetSpriteAtlas(LoadSave.POTION);
         potionImgs = new BufferedImage[7];
@@ -93,7 +121,9 @@ public class ObjectManager {
 
     private void renderPotion(Graphics g, int xLvlOffset) {
         for (Potion p: potions){
-            g.drawImage(potionImgs[p.getAniIndex()], (int)(p.getHitbox().x-p.getxDrawOffset()-xLvlOffset),(int)(p.getHitbox().y-p.getyDrawOffset()), POTION_WIDTH, POTION_HEIGHT, null);
+            if (p.isActive()) {
+                g.drawImage(potionImgs[p.getAniIndex()], (int) (p.getHitbox().x - p.getxDrawOffset() - xLvlOffset), (int) (p.getHitbox().y - p.getyDrawOffset()), POTION_WIDTH, POTION_HEIGHT, null);
+            }
         }
     }
 
@@ -101,5 +131,17 @@ public class ObjectManager {
         potions= newLevel.getPotion();
         containers = newLevel.getGameContainers();
         hearts = newLevel.getHeart();
+    }
+
+    public void resetAll() {
+        for (Heart h: hearts){
+            h.reset();
+        }
+        for (Potion p: potions){
+            p.reset();
+        }
+        for (GameContainer gc:containers){
+            gc.reset();
+        }
     }
 }

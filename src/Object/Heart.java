@@ -1,6 +1,9 @@
 package Object;
 
+import Gamestates.Playing;
 import Main.Game;
+
+import static utilz.Constant.ObjectConstants.HEART_VALUE;
 
 public class Heart extends GameObject{
     public Heart(int x, int y, int objType) {
@@ -21,5 +24,10 @@ public class Heart extends GameObject{
 
     public void update(){
         updateAnimationTick();
+    }
+
+    public void applyEffectToPlayer(Playing playing) {
+        playing.getPlayer().changeHealth(HEART_VALUE);
+
     }
 }
