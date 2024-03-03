@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+import Object.ObjectManager;
 
 public class Playing extends States implements Gamestates{
     private LevelManager levelManager;
@@ -25,6 +26,7 @@ public class Playing extends States implements Gamestates{
     private LevelComplete levelComplete;
     private boolean lvlComplete = false;
     //private int level = 1;
+    private ObjectManager objectManager;
 
     public Playing(Game game) {
         super(game);
@@ -53,6 +55,7 @@ public class Playing extends States implements Gamestates{
     private void initClasses() {
         levelManager = new LevelManager(game, this);
         enemyManager = new EnemyManager(this, levelManager);
+        objectManager = new ObjectManager(this);
         player = new Player(200,200,(int) (78 * Game.SCALE), (int) (58 * Game.SCALE),this);
         player.loadlvlData(levelManager.getCurrentLevel().getLevelData());
         pause = new Pausing(game, this);
@@ -82,6 +85,7 @@ public class Playing extends States implements Gamestates{
         } else if (!gameOver) {
             levelManager.update();
             player.update();
+            objectManager.update();
             enemyManager.update(player);//levelManager.getCurrentLevel().getLevelData(), player);
             checkCloseToBorder();
         }
@@ -111,6 +115,7 @@ public class Playing extends States implements Gamestates{
         levelManager.render(g, xLvlOffset);
         player.render(g,xLvlOffset);
         enemyManager.render(g,xLvlOffset);
+        objectManager.render(g,xLvlOffset);
         if (paused) {
             g.setColor (new Color (0,0,0, 50));
             g.fillRect (0,0,Game.GAME_WIDTH, Game.GAME_HEIGHT);
@@ -235,6 +240,10 @@ public class Playing extends States implements Gamestates{
 
     public void setGameOver(boolean b) {
         this.gameOver=b;
+    }
+
+    public ObjectManager getObjectManager() {
+        return objectManager;
     }
 }
 
