@@ -68,4 +68,15 @@ public class LevelManager {
         playing.getPlayer().loadlvlData(newLevel.getLevelData());
         playing.setMaxLvlOffSet(newLevel.getLvlOffset());
     }
+
+    public void loadCurrentLevel() {
+        if (lvlIndex >= levels.size()){
+            lvlIndex =0;
+            game.setState(new Gamestates.Menu(game));
+        }
+        Level newLevel = levels.get(lvlIndex);
+        playing.getEnemyManager().loadEnemies(newLevel);
+        playing.getPlayer().loadlvlData(newLevel.getLevelData());
+        playing.setMaxLvlOffSet(newLevel.getLvlOffset());
+    }
 }

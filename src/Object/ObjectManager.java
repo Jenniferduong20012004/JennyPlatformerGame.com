@@ -11,8 +11,9 @@ import static utilz.Constant.ObjectConstants.*;
 
 public class ObjectManager {
     private Playing playing;
-    private BufferedImage[] potionImgs;
-    private BufferedImage[][] containerImgs, heartImgs, diamondImgs;
+    private BufferedImage[] potionImgs,heartImgs;
+    private BufferedImage[][] containerImgs, diamondImgs;
+    private ArrayList<Heart> hearts = new ArrayList<>();
     private ArrayList<Potion> potions = new ArrayList<>();
     private ArrayList<GameContainer> containers = new ArrayList<>();
     public ObjectManager(Playing playing){
@@ -35,6 +36,11 @@ public class ObjectManager {
             for (int i =0; i<containerImgs[j].length; i++){
                 containerImgs[j][i]= containerSprite.getSubimage(40*i, 30*j, 40,30);
             }
+        }
+        BufferedImage heartSprite = LoadSave.GetSpriteAtlas(LoadSave.BIG_HEART_IDLE);
+        heartImgs= new BufferedImage[10];
+        for (int i =0; i < 8; i++){
+            heartImgs[i] = heartSprite.getSubimage(18*i,0,18,14);
         }
     }
     public void update(){

@@ -8,6 +8,11 @@ import entities.Pig;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import Object.Potion;
+import Object.GameContainer;
+import Object.Heart;
+
+import static utilz.Constant.ObjectConstants.*;
 
 public class helpMethods {
     public static boolean CanMoveHere(float x, float y, float width, float height, int[][] lvlData) {
@@ -161,5 +166,43 @@ public class helpMethods {
             }
         }
         return new Point(1 * Game.TILES_SIZE, 1 * Game.TILES_SIZE);
+    }
+
+    public static ArrayList<Potion> GetPotion(int[][][] lvlChoose) {
+        ArrayList<Potion> list = new ArrayList<>();
+        for (int i = 0; i < lvlChoose[1].length; i++) {
+            for (int j = 0; j < lvlChoose[1][i].length; j++) {
+                if (lvlChoose[1][i][j] == 10) {
+                    list.add(new Potion(j * Game.TILES_SIZE, i * Game.TILES_SIZE, BLUE_POTION));
+                }
+            }
+        }
+        return list;
+    }
+
+    public static ArrayList<GameContainer> GetContainer(int[][][] lvlChoose) {
+        ArrayList<GameContainer> list = new ArrayList<>();
+        for (int i = 0; i < lvlChoose[1].length; i++) {
+            for (int j = 0; j < lvlChoose[1][i].length; j++) {
+                if (lvlChoose[1][i][j] == 11) {
+                    list.add(new GameContainer(j * Game.TILES_SIZE, i * Game.TILES_SIZE, BOX));
+                } else if (lvlChoose[1][i][j] == 12) {
+                    list.add(new GameContainer(j * Game.TILES_SIZE, i * Game.TILES_SIZE, BARREL));
+                }
+            }
+        }
+        return list;
+    }
+
+    public static ArrayList<Heart> GetHeart(int[][][] lvlChoose) {
+        ArrayList<Heart> list = new ArrayList<>();
+        for (int i = 0; i < lvlChoose[1].length; i++) {
+            for (int j = 0; j < lvlChoose[1][i].length; j++) {
+                if (lvlChoose[1][i][j] == 13) {
+                    list.add(new Heart(j * Game.TILES_SIZE, i * Game.TILES_SIZE, HEART));
+                }
+            }
+        }
+        return list;
     }
 }

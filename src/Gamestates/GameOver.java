@@ -76,7 +76,7 @@ public class GameOver extends States implements Gamestates{
         }
         else if (isIn(e,replay)){
             if (replay.isMousePress()){
-                playing.loadNextLevel();
+                playing.loadCurrentLevel();
             }
         }
         menu.resetBools();

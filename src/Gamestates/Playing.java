@@ -245,5 +245,11 @@ public class Playing extends States implements Gamestates{
     public ObjectManager getObjectManager() {
         return objectManager;
     }
+
+    public void loadCurrentLevel() {
+        resetAll();
+        levelManager.loadCurrentLevel();
+        player.setPawn(levelManager.getCurrentLevel().getPlayerSpawn());
+    }
 }
 
