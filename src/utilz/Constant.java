@@ -14,12 +14,16 @@ public class Constant {
         public static final int HEART_VALE = 15;
         public static final int DIAMOND_VALUE = 1;
         public static final int BLUE_POTION_VALUE = 10;
-        public static final int CONTAINER_WIDTH_DEFAULT = 21;
-        public static final int CONTAINER_HEIGHT_DEFAULT = 16;
+        public static final int HEART_WIDTH_DEFAULT = 42/2;
+        public static final int HEART_HEIGHT_DEFAULT = 32/2;
+        public static final int HEART_WIDTH = (int) (Game.SCALE * HEART_WIDTH_DEFAULT);
+        public static final int HEART_HEIGHT = (int) (Game.SCALE * HEART_HEIGHT_DEFAULT);
+        public static final int CONTAINER_WIDTH_DEFAULT = 42;
+        public static final int CONTAINER_HEIGHT_DEFAULT = 32;
         public static final int CONTAINER_WIDTH = (int) (Game.SCALE * CONTAINER_WIDTH_DEFAULT);
         public static final int CONTAINER_HEIGHT = (int) (Game.SCALE * CONTAINER_HEIGHT_DEFAULT);
-        public static final int POTION_WIDTH_DEFAULT = 12;
-        public static final int POTION_HEIGHT_DEFAULT = 16;
+        public static final int POTION_WIDTH_DEFAULT = 24/2;
+        public static final int POTION_HEIGHT_DEFAULT = 32/2;
         public static final int POTION_WIDTH = (int) (Game.SCALE * POTION_WIDTH_DEFAULT);
         public static final int POTION_HEIGHT = (int) (Game.SCALE * POTION_HEIGHT_DEFAULT);
 

@@ -1,9 +1,11 @@
 package Object;
 
 import Gamestates.Playing;
+import levels.Level;
 import utilz.LoadSave;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -18,12 +20,14 @@ public class ObjectManager {
     private ArrayList<GameContainer> containers = new ArrayList<>();
     public ObjectManager(Playing playing){
         this.playing=playing;
-        loadImgs();
-        potions.add (new Potion (300,300,2));
-        containers.add (new GameContainer(500,300, BARREL));
-        containers.add (new GameContainer(600,300, BOX));
-    }
+        loadImgs();}
+    public void checkObjectTouch(Rectangle2D.Float hitbox){
 
+    }
+    public void applyEffectToPlayer(){
+
+    }
+    public void checkObjectHit(Rectangle2D.Float hitbox){}
     private void loadImgs() {
         BufferedImage potionSprite = LoadSave.GetSpriteAtlas(LoadSave.POTION);
         potionImgs = new BufferedImage[7];
@@ -42,6 +46,9 @@ public class ObjectManager {
         for (int i =0; i < 8; i++){
             heartImgs[i] = heartSprite.getSubimage(18*i,0,18,14);
         }
+        BufferedImage heartHit = LoadSave.GetSpriteAtlas(LoadSave.BIG_HEART_HIT);
+        heartImgs[8]= heartHit.getSubimage(18*0,0,18,14);
+        heartImgs[9]= heartHit.getSubimage(18*1,0,18,14);
     }
     public void update(){
         for (Potion p: potions) {
@@ -53,10 +60,23 @@ public class ObjectManager {
             if (gc.isActive())
                 gc.update();
         }
+        for (Heart h: hearts){
+            if (h.isActive()){
+                h.update();
+            }
+        }
+    }
+    public void renderHeart (Graphics g, int xLvlOffset){
+        for (Heart gc:hearts){
+            if (gc.isActive()){
+                g.drawImage(heartImgs[gc.getAniIndex()], (int)(gc.getHitbox().x-gc.getxDrawOffset()-xLvlOffset),(int)(gc.getHitbox().y-gc.getyDrawOffset()), HEART_WIDTH, HEART_HEIGHT, null);
+            }
+        }
     }
     public void render (Graphics g, int xLvlOffset){
         renderPotion (g, xLvlOffset);
         renderContainer(g, xLvlOffset);
+        renderHeart(g,xLvlOffset);
     }
 
     private void renderContainer(Graphics g, int xLvlOffset) {
@@ -75,5 +95,11 @@ public class ObjectManager {
         for (Potion p: potions){
             g.drawImage(potionImgs[p.getAniIndex()], (int)(p.getHitbox().x-p.getxDrawOffset()-xLvlOffset),(int)(p.getHitbox().y-p.getyDrawOffset()), POTION_WIDTH, POTION_HEIGHT, null);
         }
+    }
+
+    public void loadObject(Level newLevel) {
+        potions= newLevel.getPotion();
+        containers = newLevel.getGameContainers();
+        hearts = newLevel.getHeart();
     }
 }

@@ -43,6 +43,7 @@ public class Playing extends States implements Gamestates{
 
     private void loadStartLevel() {
         enemyManager.loadEnemies(levelManager.getCurrentLevel());
+        objectManager.loadObject(levelManager.getCurrentLevel());
     }
 
     private void calculateLvlOffset() {

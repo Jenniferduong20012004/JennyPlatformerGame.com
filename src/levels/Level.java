@@ -5,13 +5,12 @@ import Main.Game;
 import entities.BoxPig;
 import entities.KingPig;
 import entities.Pig;
-import utilz.Levels;
-import utilz.LoadSave;
 import utilz.helpMethods;
-
+import Object.GameContainer;
 import java.awt.*;
 import java.util.ArrayList;
-
+import Object.Potion;
+import Object.Heart;
 import static utilz.helpMethods.*;
 
 public class Level {
@@ -25,14 +24,27 @@ public class Level {
     private ArrayList<BoxPig> boxpigs;
     private ArrayList<KingPig> kingpigs;
     private ArrayList<Pig> pigs;
+    private ArrayList<GameContainer> gameContainers;
+    private ArrayList <Potion> potion;
+    private ArrayList <Heart> heart;
+
 
     public Level(int [][][] lvlData){
         this.currentLevel = lvlData;
         createLevelData();
         createEnemies();
+        createPotion();
+        createContainer();
+        createHeart();
         calculateLvlOffset();
         calculatePlayerSpawn();
     }
+
+    private void createHeart() {heart = helpMethods.GetHeart(currentLevel);}
+
+    private void createContainer() {gameContainers = helpMethods.GetContainer(currentLevel);}
+
+    private void createPotion() {potion = helpMethods.GetPotion(currentLevel);}
 
     private void calculatePlayerSpawn() {
         playerSpawn = GetPlayerSpawn(currentLevel);
@@ -69,4 +81,10 @@ public class Level {
     public Point getPlayerSpawn() {
         return playerSpawn;
     }
+
+    public ArrayList<Heart> getHeart() {return heart;}
+
+    public ArrayList<GameContainer> getGameContainers() {return gameContainers;}
+    public ArrayList<Potion> getPotion() {return potion;}
+
 }
