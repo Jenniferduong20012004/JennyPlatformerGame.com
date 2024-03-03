@@ -17,6 +17,7 @@ public class Player extends Entity{
     private boolean moving = false;
     private boolean attack =false;
     private boolean jump = false;
+    private boolean hit = false;
     private boolean left, right;
     private BufferedImage [][] playerAnimation;
     private float playerSpeed =1*Game.SCALE;
@@ -247,8 +248,14 @@ public class Player extends Entity{
             }
         }
         if (ground){
+            aniTick =0;
             playerAction = GROUND;
             ground = false;
+        }
+        if (hit){
+            aniTick =0;
+            playerAction = HIT;
+            hit = false;
         }
         if (attack){
             playerAction = ATTACK;
@@ -380,5 +387,9 @@ public class Player extends Entity{
             currentPower =0;
             attackDam +=10;
         }
+    }
+
+    public void setHit(boolean hit) {
+        this.hit = hit;
     }
 }

@@ -18,7 +18,6 @@ import levels.Level.*;
 
 public class EnemyManager {
     private Playing playing;
-    private levels.Level level;
     private ArrayList<Pig> pigs = new ArrayList<>();
     private ArrayList<KingPig> kingpigs = new ArrayList<>();
     private BufferedImage[][] pigArr, kingPigArr, boxPigArr;
